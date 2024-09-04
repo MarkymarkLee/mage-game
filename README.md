@@ -1,4 +1,4 @@
-# Muggle
+# 🧙🏻‍♀️Muggle
 
 A game where you draw your own spell and fight bosses
 
