@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1972164099915867829}
   - component: {fileID: 6336839217154512110}
   - component: {fileID: 8101414908249993261}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Line
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -85,8 +85,8 @@ LineRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0.14721431
-        value: 0.18398929
+        time: 0.15243281
+        value: 0.091398954
         inSlope: 0
         outSlope: 0
         tangentMode: 0
