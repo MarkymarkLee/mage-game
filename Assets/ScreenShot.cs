@@ -26,7 +26,15 @@ public class ScreenShot : MonoBehaviour
         RenderTexture.active = null;
 
         byte[] byteArray = renderedTexture.EncodeToPNG();
-        // print(Application.dataPath + "/ScreenShots/" + System.DateTime.Now.ToString("MM-dd-yy (HH-mm-ss)") + ".png");
-        System.IO.File.WriteAllBytes(Application.dataPath + "/ScreenShots/" + System.DateTime.Now.ToString("MM-dd-yy (HH-mm-ss)") + ".png", byteArray);
+
+        var folderPath = Application.dataPath + "/Storage/ScreenShots/";
+        var folder = System.IO.Directory.CreateDirectory(folderPath);
+        if (!folder.Exists)
+        {
+            System.IO.Directory.CreateDirectory(folderPath);
+        }
+
+        var filePath = folderPath + System.DateTime.Now.ToString("MM-dd-yy (HH-mm-ss)") + ".png";
+        System.IO.File.WriteAllBytes(filePath, byteArray);
     }
 }
