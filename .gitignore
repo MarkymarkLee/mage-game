@@ -73,3 +73,7 @@ crashlytics-build.properties
 
 /[Aa]ssets/Storage/*
 /[Aa]ssets/Storage.meta
+
+# Custom Build
+Packages/packages-lock.json
+ProjectSettings/ProjectVersion.txt
