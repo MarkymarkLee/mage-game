@@ -11,29 +11,29 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 2257106358262923477}
-    m_Position: {x: 160, y: -70, z: 0}
+    m_Position: {x: -180, y: 130, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 3075731266344261756}
-    m_Position: {x: 420, y: 10, z: 0}
+    m_Position: {x: -410, y: 40, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 4144304983865335843}
-    m_Position: {x: 400, y: 70, z: 0}
+    m_Position: {x: 90, y: 220, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 625638572344284461}
-    m_Position: {x: 420, y: 130, z: 0}
+    m_Position: {x: 110, y: 280, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 4440602301928389396}
-    m_Position: {x: 420, y: 200, z: 0}
+    m_Position: {x: 110, y: 350, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 4239232791847839442}
-    m_Position: {x: 420, y: 270, z: 0}
+    m_Position: {x: 110, y: 420, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
   m_StateMachineTransitions: {}
   m_StateMachineBehaviours: []
-  m_AnyStatePosition: {x: 50, y: 20, z: 0}
-  m_EntryPosition: {x: 180, y: -190, z: 0}
+  m_AnyStatePosition: {x: -340, y: 190, z: 0}
+  m_EntryPosition: {x: -130, y: -40, z: 0}
   m_ExitPosition: {x: 800, y: 120, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: 2257106358262923477}
@@ -43,7 +43,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: blue_witch
+  m_Name: blue_witch_animator
   serializedVersion: 5
   m_AnimatorParameters: []
   m_AnimatorLayers:
