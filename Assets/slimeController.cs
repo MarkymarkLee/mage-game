@@ -10,6 +10,8 @@ public class slimeController : MonoBehaviour
     InputAction moveAction;
     // CapsuleCollider collider;
     private bool isDead = false;
+    public float speed;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,15 +39,15 @@ public class slimeController : MonoBehaviour
             return;
         }
         MovePlayer();
-        if(Input.GetKey("space"))
-        {
-            animator.SetBool("is_jump", true);
-        }
-        else
-        {
-            animator.SetBool("is_jump", false);
-        }
-        if(Input.GetKey("q"))
+        // if(Input.GetKey("space"))
+        // {
+        //     animator.SetBool("is_jump", true);
+        // }
+        // else
+        // {
+        //     animator.SetBool("is_jump", false);
+        // }
+        if(Input.GetMouseButton(0)) // left mouse button
         {
             animator.SetBool("is_attack_1", true);
         }
@@ -58,7 +60,7 @@ public class slimeController : MonoBehaviour
     void MovePlayer()
     {
         Vector2 direction = moveAction.ReadValue<Vector2>();
-        transform.position += new Vector3(direction.x, direction.y, 0) * Time.deltaTime;
+        transform.position += new Vector3(direction.x, direction.y, 0) * Time.deltaTime * speed;
         if(direction.magnitude > 0)
         {
             animator.SetBool("is_run", true);
