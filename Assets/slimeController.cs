@@ -9,7 +9,10 @@ public class slimeController : MonoBehaviour
     PlayerInput playerInput;
     InputAction moveAction;
     // CapsuleCollider collider;
-    private bool isDead = false;
+    private float speed = 0f;
+    public float normal_speed;
+    public float shift_speed;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,30 +25,16 @@ public class slimeController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(isDead)
-        {
-            if(Input.GetKey("r"))
-            {
-                animator.SetBool("is_revive", true);
-                isDead = false;
-                animator.SetBool("is_dead", false);
-            }
-            else
-            {
-                animator.SetBool("is_revive", false);
-            }
-            return;
-        }
         MovePlayer();
-        if(Input.GetKey("space"))
+        if(Input.GetKey(KeyCode.LeftShift))
         {
-            animator.SetBool("is_jump", true);
+            speed = shift_speed;
         }
         else
         {
-            animator.SetBool("is_jump", false);
+            speed = normal_speed;
         }
-        if(Input.GetKey("q"))
+        if(Input.GetMouseButton(0)) // left mouse button
         {
             animator.SetBool("is_attack_1", true);
         }
@@ -58,7 +47,7 @@ public class slimeController : MonoBehaviour
     void MovePlayer()
     {
         Vector2 direction = moveAction.ReadValue<Vector2>();
-        transform.position += new Vector3(direction.x, direction.y, 0) * Time.deltaTime;
+        transform.position += new Vector3(direction.x, direction.y, 0) * Time.deltaTime * speed;
         if(direction.magnitude > 0)
         {
             animator.SetBool("is_run", true);
@@ -67,14 +56,6 @@ public class slimeController : MonoBehaviour
         else
         {
             animator.SetBool("is_run", false);
-        }
-    }
-    void OnTriggerEnter(Collider other)
-    {
-        if(other.gameObject.tag == "enemy")
-        {
-            isDead = true;
-            animator.SetBool("is_dead", true);
         }
     }
 }

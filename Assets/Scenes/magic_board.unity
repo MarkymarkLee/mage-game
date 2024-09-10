@@ -196,8 +196,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53bf7e4f6df42454495d411fc446f70b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cursorTexture: {fileID: 2800000, guid: de25d71da8fda634d8e8ebd0cdca6352, type: 3}
-  cursorTextureClicked: {fileID: 2800000, guid: 10dd09a5a638c8f4592275f5325b3d07, type: 3}
+  cursorTexture_draw: {fileID: 2800000, guid: de25d71da8fda634d8e8ebd0cdca6352, type: 3}
+  cursorTextureClicked_draw: {fileID: 2800000, guid: 10dd09a5a638c8f4592275f5325b3d07, type: 3}
+  cursorTexture_aim: {fileID: 2800000, guid: 0559627a9aa788b4893db533aa9f25dc, type: 3}
+  cursorTextureClicked_aim: {fileID: 2800000, guid: 181fe82b6c1e9d5428a2809c72994e2e, type: 3}
+  cursor_mode: 0
 --- !u!4 &1875506967
 Transform:
   m_ObjectHideFlags: 0

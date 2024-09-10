@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Map
+  - Ball
   layers:
   - Default
   - TransparentFX
@@ -12,7 +13,7 @@ TagManager:
   - Magic
   - Water
   - UI
-  - 
+  - Ball
   - Player
   - Map
   - 
