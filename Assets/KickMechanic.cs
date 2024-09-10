@@ -30,8 +30,8 @@ public class KickMechanic : MonoBehaviour
 
             // Calculate the direction and kick the ball
             Vector2 kickDirection = (mouseWorldPosition - areaTrigger.transform.position).normalized;
+            RemoveAllForces(ballRb);
             ballRb.AddForce(kickDirection * kickForce, ForceMode2D.Impulse);
-
             if (areaTrigger.IsBallInArea())
             {
                 areaTrigger.timeManager.ResetTime();
@@ -47,5 +47,10 @@ public class KickMechanic : MonoBehaviour
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(areaTrigger.transform.position, areaTrigger.GetComponent<CircleCollider2D>().radius*2); // Adjust the radius here
+    }
+
+    private void RemoveAllForces(Rigidbody2D rb)
+    {
+        rb.velocity = new Vector3(0,0,0);
     }
 }

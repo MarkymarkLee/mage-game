@@ -9,8 +9,9 @@ public class slimeController : MonoBehaviour
     PlayerInput playerInput;
     InputAction moveAction;
     // CapsuleCollider collider;
-    private bool isDead = false;
-    public float speed;
+    private float speed = 0f;
+    public float normal_speed;
+    public float shift_speed;
 
     // Start is called before the first frame update
     void Start()
@@ -24,29 +25,15 @@ public class slimeController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(isDead)
-        {
-            if(Input.GetKey("r"))
-            {
-                animator.SetBool("is_revive", true);
-                isDead = false;
-                animator.SetBool("is_dead", false);
-            }
-            else
-            {
-                animator.SetBool("is_revive", false);
-            }
-            return;
-        }
         MovePlayer();
-        // if(Input.GetKey("space"))
-        // {
-        //     animator.SetBool("is_jump", true);
-        // }
-        // else
-        // {
-        //     animator.SetBool("is_jump", false);
-        // }
+        if(Input.GetKey(KeyCode.LeftShift))
+        {
+            speed = shift_speed;
+        }
+        else
+        {
+            speed = normal_speed;
+        }
         if(Input.GetMouseButton(0)) // left mouse button
         {
             animator.SetBool("is_attack_1", true);
@@ -69,14 +56,6 @@ public class slimeController : MonoBehaviour
         else
         {
             animator.SetBool("is_run", false);
-        }
-    }
-    void OnTriggerEnter(Collider other)
-    {
-        if(other.gameObject.tag == "enemy")
-        {
-            isDead = true;
-            animator.SetBool("is_dead", true);
         }
     }
 }
