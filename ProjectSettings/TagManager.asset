@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Map
   - Ball
+  - MathArea
   layers:
   - Default
   - TransparentFX
