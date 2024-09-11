@@ -1,7 +1,7 @@
 using UnityEngine;
 using TMPro;
 
-public class MathOperationDisplay : MonoBehaviour
+public class MathOpDisplay : MonoBehaviour
 {
     public string mathOperation = "+";   // The operation (+, -, ×, ÷)
     public int number = 1;               // The number for the operation

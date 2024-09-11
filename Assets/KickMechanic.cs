@@ -5,6 +5,7 @@ public class KickMechanic : MonoBehaviour
     public float kickForce = 500f;
     private Rigidbody2D ballRb;
     public AreaTrigger areaTrigger;
+    public BallAppearanceController ballAppearanceController;
     void Update()
     {
         if (Input.GetMouseButtonDown(0)) // Left-click to kick
@@ -23,6 +24,7 @@ public class KickMechanic : MonoBehaviour
         {
             print("Kicking the ball!");
             ballRb = ballCollider.GetComponent<Rigidbody2D>();
+            ballAppearanceController.ActivateBall(); // Activate the ball for math area interaction
 
             // Get mouse position in world space
             Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
