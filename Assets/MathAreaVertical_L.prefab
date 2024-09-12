@@ -279,7 +279,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mathOperation: '-'
-  number: 1
+  number: 1000
   operationText: {fileID: 8555745880498071705}
 --- !u!1 &8470411335968071724
 GameObject:

@@ -4,19 +4,35 @@ using TMPro;
 public class BallTextDisplay : MonoBehaviour
 {
     public Rigidbody2D ballRigidbody;    // The Rigidbody2D component of the ball
-    public TextMeshProUGUI numText;     // Reference to the TextMeshPro component on the ball
-    public int num = 1;                 // The number to display
+    public TextMeshProUGUI ballText;     // Reference to the TextMeshPro component on the ball
+    public float ballValue;              // The number to display
     public BallAppearanceController ballAppearanceController;
+    private static readonly string[] suffixes = {
+        "", "K", "M", "B", "T", 
+        "AA", "BB", "CC", "DD", "EE", 
+        "FF", "GG", "HH", "II", "JJ", 
+        "KK", "LL", "MM", "NN", "OO", 
+        "PP", "QQ", "RR", "SS", "TT"
+        // Add more if needed
+    };
     void Update()
     {
-        // Get the current velocity of the ball
-        Vector2 velocity = ballRigidbody.velocity;
+        ballText.text = FormatLargeNumber(ballValue);
+    }
 
-        // Calculate the magnitude of the velocity (speed)
-        // float speed = velocity.magnitude;
+    public static string FormatLargeNumber(double number)
+    {
+        int index = 0;
 
-        // Update the TextMeshPro text to display the speed
-        numText.text = num.ToString();  // "F2" limits to 2 decimal places
+        // Loop to find the appropriate suffix for the large number
+        while (number >= 1000 && index < suffixes.Length - 1)
+        {
+            number /= 1000;
+            index++;
+        }
+
+        // Format the number to 2 decimal places and append the appropriate suffix
+        return number.ToString("0.#") + suffixes[index];
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -26,8 +42,7 @@ public class BallTextDisplay : MonoBehaviour
             MathOpDisplay mathOp = collision.gameObject.GetComponent<MathOpDisplay>();
             if (mathOp != null)
             {
-                int currentValue = int.Parse(numText.text);
-                num = mathOp.ApplyOperation(currentValue);
+                ballValue = mathOp.ApplyOperation(ballValue);
             }
             ballAppearanceController.DeactivateBall();
         }
