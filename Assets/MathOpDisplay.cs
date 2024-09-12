@@ -3,43 +3,45 @@ using TMPro;
 
 public class MathOpDisplay : MonoBehaviour
 {
-    public string mathOperation = "+";   // The operation (+, -, ×, ÷)
-    public int number = 1;               // The number for the operation
     public TextMeshProUGUI operationText;    // Reference to the TextMeshPro component
+    public int minNumber = 1;           // Minimum value for the number
+    public int maxNumber = 10;          // Maximum value for the number
 
+    private string[] operations = { "+", "-", "×", "÷" };  // Possible operations
+    private string currentOperation;
+    private int currentNumber;
+    
+    
     void Start()
     {
-        // Set the initial text to display the operation and number
-        UpdateOperationDisplay();
+        RandomizeOperation();  // Set the initial operation and number
     }
 
-    // Function to update the displayed text
-    public void UpdateOperationDisplay()
+    private void RandomizeOperation()
     {
-        operationText.text = mathOperation + " " + number.ToString();
-    }
+        // Randomly select an operation
+        currentOperation = operations[Random.Range(0, operations.Length)];
 
-    // Function to dynamically change the operation and number
-    public void SetOperation(string newOperation, int newNumber)
-    {
-        mathOperation = newOperation;
-        number = newNumber;
-        UpdateOperationDisplay();
+        // Randomly select a number within the range
+        currentNumber = Random.Range(minNumber, maxNumber + 1);
+
+        // Update the TextMeshPro text to display the operation and number
+        operationText.text = currentOperation + " " + currentNumber.ToString();
     }
 
     // You can call this function when the ball interacts with the area to apply the effect
-    public int ApplyOperation(int ballValue)
+    public float ApplyOperation(float ballValue)
     {
-        switch (mathOperation)
+        switch (currentOperation)
         {
             case "+":
-                return ballValue + number;
+                return ballValue + currentNumber;
             case "-":
-                return ballValue - number;
+                return ballValue - currentNumber;
             case "×":
-                return ballValue * number;
+                return ballValue * currentNumber;
             case "÷":
-                return ballValue / number;
+                return ballValue / currentNumber;
             default:
                 return ballValue;
         }
