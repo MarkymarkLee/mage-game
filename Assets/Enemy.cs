@@ -7,6 +7,7 @@ public class Enemy : MonoBehaviour
     // public float damageOnHit = 20f;  // Damage taken per hit from the ball
     // public GameObject deathEffect;  // Optional: Particle effect on death
     Animator animator;
+    public GameObject deathEffectPrefab;
 
     void Start()
     {
@@ -29,17 +30,16 @@ public class Enemy : MonoBehaviour
     // Method to handle enemy death
     void Die()
     {
-        // Play death effect, if available
-        // if (deathEffect != null)
-        // {
-        //     Instantiate(deathEffect, transform.position, Quaternion.identity);
-        // }
+        Vector3 deathPosition = transform.position;
 
-        // Destroy the enemy GameObject
-        // Destroy(gameObject);
+        // Destroy the original enemy GameObject immediately
+        Destroy(gameObject);
 
-        // Optional: Play death animation
-        animator.SetBool("is_dead", true);
+        // Instantiate the new GameObject to handle death animation and fade-out
+        if (deathEffectPrefab != null)
+        {
+            Instantiate(deathEffectPrefab, deathPosition, Quaternion.identity);
+        }
     }
 
     // Detect when the enemy is hit by the ball

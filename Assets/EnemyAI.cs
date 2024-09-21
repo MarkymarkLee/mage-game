@@ -55,7 +55,7 @@ public class EnemyAI : MonoBehaviour
         {
             currentPoint = (currentPoint + 1) % patrolPoints.Length;
         }
-        animator.SetBool("is_run", true);
+        
 
         transform.position = Vector2.MoveTowards(transform.position, patrolPoints[currentPoint].position, speed * Time.deltaTime);
     }
@@ -65,6 +65,7 @@ public class EnemyAI : MonoBehaviour
         // If the player is within range and cooldown is ready, execute AoE attack
         if (Vector2.Distance(transform.position, player.position) < attackRange && Time.time > lastAtk_1Time + atk_1Cooldown)
         {
+            lastAtk_1Time = Time.time;
             StartAttack_1();
         }
     }
