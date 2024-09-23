@@ -39,12 +39,15 @@ public class EnemyAttack_1 : MonoBehaviour
         {
             Destroy(trajectoryInstance);  // Remove previous trajectory if it exists
         }
+
+        Vector2 player_pos = player.position;
+        Vector2 boss_pos = transform.position;
         
-        dashTarget = player.position;  // Set the target position for the dash
-        Vector2 direction = (player.position - transform.position).normalized;
-        float distance = Vector2.Distance(transform.position, player.position);
+        dashTarget = player_pos * 2 - boss_pos;  // Set the target position for the dash
+        Vector2 direction = (dashTarget - boss_pos).normalized;
+        float distance = Vector2.Distance(boss_pos, dashTarget);
         
-        Vector2 middlePoint = (player.position + transform.position) / 2;
+        Vector2 middlePoint = (boss_pos + dashTarget) / 2;
 
         // Instantiate the rectangular trajectory prefab
         trajectoryInstance = Instantiate(trajectoryPrefab, middlePoint, Quaternion.identity);
