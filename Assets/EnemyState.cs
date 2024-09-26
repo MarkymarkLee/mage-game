@@ -2,5 +2,6 @@ public enum EnemyState
 {
     Patrolling,
     Attacking,
-    Idle
+    Idle,
+    TakeDamage
 }
