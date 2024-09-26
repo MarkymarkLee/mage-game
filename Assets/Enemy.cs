@@ -6,8 +6,9 @@ public class Enemy : MonoBehaviour
     public float shield = 10f;  // Enemy shield
     // public float damageOnHit = 20f;  // Damage taken per hit from the ball
     // public GameObject deathEffect;  // Optional: Particle effect on death
-    Animator animator;
+    public float damageDuration = 0.5f;  // Duration of damage animation
     public GameObject deathEffectPrefab;
+    private Animator animator;
 
     void Start()
     {
@@ -42,18 +43,27 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    // Detect when the enemy is hit by the ball
-    void OnCollisionEnter2D(Collision2D collision)
+    void doDamageAnimation()
     {
-        if (collision.gameObject.CompareTag("Ball"))  // Check if the collision is with the ball
-        {
-            // Get ball's velocity-based damage (example)
-            BallTextDisplay ball = collision.gameObject.GetComponent<BallTextDisplay>();
-            if (ball != null)
-            {
-                ball.ballValue = ball.ballValue - shield;
-                TakeDamage(ball.ballValue);
-            }
-        }
+        animator.SetBool("is_damaged", false);
     }
+
+    // Detect when the enemy is hit by the ball
+    // void OnCollisionEnter2D(Collision2D collision)
+    // {
+    //     if (collision.gameObject.CompareTag("Ball"))  // Check if the collision is with the ball
+    //     {
+    //         // Get ball's velocity-based damage (example)
+    //         BallTextDisplay ball = collision.gameObject.GetComponent<BallTextDisplay>();
+    //         if (ball != null)
+    //         {
+    //             ball.ballValue = ball.ballValue - shield;
+    //             animator.SetBool("is_damaged", true);
+    //             TakeDamage(ball.ballValue);
+    //             // stop moving for a moment
+    //             GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+    //             Invoke("doDamageAnimation", damageDuration);
+    //         }
+    //     }
+    // }
 }

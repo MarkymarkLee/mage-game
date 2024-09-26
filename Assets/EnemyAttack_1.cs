@@ -7,12 +7,14 @@ public class EnemyAttack_1 : MonoBehaviour
     public GameObject trajectoryPrefab;  // The rectangular trajectory visualization (e.g., a sprite or a prefab)
     public float dashSpeed = 10f;        // The speed of the dash
     public float dashDelay = 1f;         // Delay before dashing along the trajectory
+    public float dashDistance = 5f;      // The distance to dash
     public float trajectoryThickness = 2f;
     private GameObject trajectoryInstance;
     private Transform player;
     private Vector2 dashTarget;
     private bool isDashing = false;
     Animator animator;
+    public LayerMask obstacleLayer;  // Layer mask for detecting obstacles
 
     void Start()
     {
@@ -40,23 +42,31 @@ public class EnemyAttack_1 : MonoBehaviour
             Destroy(trajectoryInstance);  // Remove previous trajectory if it exists
         }
 
-        Vector2 player_pos = player.position;
-        Vector2 boss_pos = transform.position;
-        
-        dashTarget = player_pos * 2 - boss_pos;  // Set the target position for the dash
-        Vector2 direction = (dashTarget - boss_pos).normalized;
-        float distance = Vector2.Distance(boss_pos, dashTarget);
-        
-        Vector2 middlePoint = (boss_pos + dashTarget) / 2;
+        Vector3 player_pos = player.position;
+        Vector3 boss_pos = transform.position;
+        Vector2 direction = (player_pos - boss_pos).normalized;
+
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, dashDistance, obstacleLayer);
+
+        if (hit.collider != null)
+        {
+            // If the raycast hits something, dash only up to the hit point
+            dashTarget = hit.point;
+        }
+        else
+        {
+            // No obstacle, dash the full distance
+            dashTarget = (Vector2)boss_pos + direction * dashDistance;
+        }
+
+        Vector2 middlePoint = ((Vector2)boss_pos + dashTarget) / 2;
 
         // Instantiate the rectangular trajectory prefab
         trajectoryInstance = Instantiate(trajectoryPrefab, middlePoint, Quaternion.identity);
         // Adjust the size and rotation of the trajectory to match the path to the player
-        trajectoryInstance.transform.localScale = new Vector3(distance, trajectoryThickness, 1);  // Make it as long as the distance to the player
+        trajectoryInstance.transform.localScale = new Vector3(Vector2.Distance(boss_pos, dashTarget), trajectoryThickness, 1);
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         trajectoryInstance.transform.rotation = Quaternion.Euler(0, 0, angle);
-
-        
     }
 
     // Dash along the trajectory toward the player
