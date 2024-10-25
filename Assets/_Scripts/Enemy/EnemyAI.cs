@@ -34,6 +34,7 @@ public class EnemyAI : MonoBehaviour
 
     void Update()
     {
+        if (player == null) return; // Exit if the player is not found
         if (!isAttacking)
         {
             MoveTowardsPlayer();
@@ -114,6 +115,7 @@ public class EnemyAI : MonoBehaviour
     {
         rotationInterval = newRotationInterval;
     }
+
 }
 
 // Interface to enforce the attack method for various attack scripts

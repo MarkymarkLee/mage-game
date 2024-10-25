@@ -3,15 +3,19 @@ using UnityEngine;
 public class EnemyBody : MonoBehaviour
 {
     public int maxHealth = 10;
-    private int currentHealth;
+    public int currentHealth;
     public GameObject vitalSide; // Assign the vital side object in the inspector
     // public float damageMultiplier = 1f; // Multiplier based on ball speed or other factors
-    public BallApController ballApController; // Reference to the BallApController script
+    private BallApController ballApController; // Reference to the BallApController script
+    public GameObject spiritPrefab; // Reference to the spirit prefab
+    private EnemySpawner enemySpawner; // Reference to the EnemySpawner script
 
     void Start()
     {
         // Initialize health
         currentHealth = maxHealth;
+        ballApController = GameObject.FindObjectOfType<BallApController>();
+        enemySpawner = GameObject.FindObjectOfType<EnemySpawner>();
     }
 
     // Function to apply damage when the ball hits the vital side
@@ -32,6 +36,8 @@ public class EnemyBody : MonoBehaviour
     {
         Debug.Log("Enemy died!");
         // Play death animation, destroy the enemy object, etc.
+        Instantiate(spiritPrefab, transform.position, Quaternion.identity);
+        enemySpawner.OnEnemyDeath(); // Notify the enemy spawner that an enemy has died
         Destroy(gameObject);
     }
 
@@ -45,7 +51,7 @@ public class EnemyBody : MonoBehaviour
             {
                 int damage = ballApController.GetBallDamage();
                 print("Ball damage: " + damage);
-                
+                ballRb.velocity = ballRb.velocity.normalized * ballApController.minReflectSpeed;
                 TakeDamage(damage); // Apply the calculated damage
             }
         }

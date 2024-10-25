@@ -4,7 +4,7 @@ public class AreaTrigger : MonoBehaviour
 {
     public TimeManager timeManager;
     private bool isBallInArea = false; // Track if the ball is inside the area
-    public Rigidbody2D ballRigidbody; // Reference to the ball's Rigidbody2D
+    private Rigidbody2D ballRigidbody; // Reference to the ball's Rigidbody2D
 
     // Variables to control slow down intensity
     public float minSlowFactor = 0.5f; // Minimum slow down factor
