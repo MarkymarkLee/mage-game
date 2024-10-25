@@ -5,6 +5,8 @@ public class BallApController : MonoBehaviour
     public Renderer ballRenderer; // Reference to the Renderer component of the ball
     public Rigidbody2D ballRigidbody; // Reference to the Rigidbody2D for speed checking
 
+    public float minReflectSpeed = 12f;
+
     public Color initialColor = Color.white; // Default color
     public Color firstColor = Color.cyan; // Color for the first speed threshold
     public Color secondColor = Color.yellow; // Color for the second speed threshold
