@@ -477,7 +477,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -560,7 +560,7 @@ RectTransform:
   m_GameObject: {fileID: 1499827129}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.4, y: 1.4, z: 1.4}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1202618569}
@@ -621,6 +621,7 @@ GameObject:
   - component: {fileID: 1512035468}
   - component: {fileID: 1512035467}
   - component: {fileID: 1512035470}
+  - component: {fileID: 1512035471}
   m_Layer: 5
   m_Name: Tutorial Button
   m_TagString: Untagged
@@ -644,7 +645,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -170}
+  m_AnchoredPosition: {x: 0, y: -140}
   m_SizeDelta: {x: 960, y: 540}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1512035467
@@ -690,7 +691,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1512035468}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1512035471}
+        m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
+        m_MethodName: LoadScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: LoadScene
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1512035468
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -743,6 +756,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Padding: {x: 150, y: 200, z: 150, w: 200}
   m_Softness: {x: 0, y: 0}
+--- !u!114 &1512035471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1512035465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f00e0f4078575db49ad39fa425153bab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneName: Tutorial
 --- !u!1 &1691802242
 GameObject:
   m_ObjectHideFlags: 0
@@ -756,6 +782,7 @@ GameObject:
   - component: {fileID: 1691802245}
   - component: {fileID: 1691802244}
   - component: {fileID: 1691802247}
+  - component: {fileID: 1691802248}
   m_Layer: 5
   m_Name: Start Button
   m_TagString: Untagged
@@ -779,7 +806,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -90}
+  m_AnchoredPosition: {x: 0, y: -65}
   m_SizeDelta: {x: 960, y: 540}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1691802244
@@ -825,7 +852,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1691802245}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1691802248}
+        m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
+        m_MethodName: LoadScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!114 &1691802245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -878,6 +917,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Padding: {x: 220, y: 200, z: 220, w: 200}
   m_Softness: {x: 0, y: 0}
+--- !u!114 &1691802248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1691802242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f00e0f4078575db49ad39fa425153bab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneName: World
 --- !u!1 &2018184136
 GameObject:
   m_ObjectHideFlags: 0
