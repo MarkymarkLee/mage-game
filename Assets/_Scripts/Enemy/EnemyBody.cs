@@ -37,7 +37,10 @@ public class EnemyBody : MonoBehaviour
         Debug.Log("Enemy died!");
         // Play death animation, destroy the enemy object, etc.
         Instantiate(spiritPrefab, transform.position, Quaternion.identity);
-        enemySpawner.OnEnemyDeath(); // Notify the enemy spawner that an enemy has died
+        if (enemySpawner != null)
+        {
+            enemySpawner.OnEnemyDeath();
+        }
         Destroy(gameObject);
     }
 

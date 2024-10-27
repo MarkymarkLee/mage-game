@@ -11,8 +11,12 @@ public class PlayerController : MonoBehaviour
     public float dashDuration = 0.2f; // Duration of the dash
     public LayerMask obstacleLayer; // Layer mask for detecting obstacles
 
+    public float maxSpeed = 10f;
+
+    public float diminishSpeed = 0.1f;
+
     // Trail for dash effect
-    public TrailRenderer dashTrail; 
+    public TrailRenderer dashTrail;
 
     private Rigidbody2D rb;
     private Vector2 movement;
@@ -51,7 +55,17 @@ public class PlayerController : MonoBehaviour
     void MovePlayer()
     {
         Vector2 movementInput = movement.normalized * normalSpeed;
-        rb.MovePosition(rb.position + movementInput * Time.fixedDeltaTime);
+        rb.velocity += movementInput;
+        if (rb.velocity.magnitude >= maxSpeed)
+        {
+            rb.velocity = rb.velocity.normalized * maxSpeed;
+        }
+        rb.velocity -= diminishSpeed * rb.velocity;
+        if (rb.velocity.magnitude < 0)
+        {
+            rb.velocity = Vector2.zero;
+        }
+        // rb.MovePosition(rb.position + movementInput * Time.fixedDeltaTime);
     }
 
     private void StartDash()
