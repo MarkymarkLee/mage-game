@@ -4,7 +4,7 @@ public class KickMechanic : MonoBehaviour
 {
     public float additionalKickForce = 5f; // Force added on kick
     public float initialKickForce = 10f; // Initial force applied to the ball
-    public float speedLimit = 20f; // Speed limit for changing appearance
+    // public float speedLimit = 20f; // Speed limit for changing appearance
     private Rigidbody2D ballRb;
     public AreaTrigger areaTrigger;
     public BallApController ballAppearanceController;
@@ -53,10 +53,10 @@ public class KickMechanic : MonoBehaviour
             // print(ballRb.velocity.magnitude);
 
             // Limit the speed
-            if (ballRb.velocity.magnitude > speedLimit)
-            {
-                ballRb.velocity = ballRb.velocity.normalized * speedLimit;
-            }
+            // if (ballRb.velocity.magnitude > speedLimit)
+            // {
+            //     ballRb.velocity = ballRb.velocity.normalized * speedLimit;
+            // }
 
             ballAppearanceController.UpdateBallAppearance(); // Update ball appearance
         }

@@ -28,6 +28,17 @@ public class PlayerSpirit : MonoBehaviour
         }
     }
 
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (isInvincible) return;  // Exit if player is currently invincible
+        if (collision.CompareTag("Bullet"))
+        {
+            initialLives--;
+            AdjustSize(-sizeChangeAmount);
+            StartCoroutine(InvincibilityFlash());
+        }
+    }
+
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (isInvincible) return;  // Exit if player is currently invincible

@@ -8,6 +8,7 @@ public class EnemyBody : MonoBehaviour
     // public float damageMultiplier = 1f; // Multiplier based on ball speed or other factors
     private BallApController ballApController; // Reference to the BallApController script
     public GameObject spiritPrefab; // Reference to the spirit prefab
+    [Range(0f, 1f)] public float spiritDropProbability = 0.5f; 
     private EnemySpawner enemySpawner; // Reference to the EnemySpawner script
 
     void Start()
@@ -36,8 +37,12 @@ public class EnemyBody : MonoBehaviour
     {
         Debug.Log("Enemy died!");
         // Play death animation, destroy the enemy object, etc.
-        Instantiate(spiritPrefab, transform.position, Quaternion.identity);
-        enemySpawner.OnEnemyDeath(); // Notify the enemy spawner that an enemy has died
+        if (Random.value < spiritDropProbability){
+            Instantiate(spiritPrefab, transform.position, Quaternion.identity);
+        }
+        if (enemySpawner != null){
+            enemySpawner.OnEnemyDeath(); // Notify the enemy spawner that an enemy has died
+        }
         Destroy(gameObject);
     }
 

@@ -45,7 +45,8 @@ public class EnemySpawner : MonoBehaviour
         if (spawnPoints.Length > 0)
         {
             int spawnIndex = Random.Range(0, spawnPoints.Length);
-            Instantiate(enemyPrefabs[enemyIndex], spawnPoints[spawnIndex].position, Quaternion.identity);
+            Quaternion randomRotation = Quaternion.Euler(0, 0, Random.Range(0f, 360f));
+            Instantiate(enemyPrefabs[enemyIndex], spawnPoints[spawnIndex].position, randomRotation);
             currentEnemyCount++;
             spawnedEnemiesCount++;
         }
