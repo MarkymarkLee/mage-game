@@ -13,8 +13,12 @@ public class PlayerController : MonoBehaviour
     public float dashDuration = 0.2f; // Duration of the dash
     public LayerMask obstacleLayer; // Layer mask for detecting obstacles
 
+    public float maxSpeed = 10f;
+
+    public float diminishSpeed = 0.1f;
+
     // Trail for dash effect
-    public TrailRenderer dashTrail; 
+    public TrailRenderer dashTrail;
 
     private Rigidbody2D rb;
     private Vector2 currentVelocity;   // Player's current speed and direction
@@ -77,6 +81,7 @@ public class PlayerController : MonoBehaviour
 
         // Move the player
         rb.MovePosition(rb.position + currentVelocity * Time.fixedDeltaTime);
+
     }
 
     private void StartDash()
