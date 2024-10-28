@@ -3,13 +3,13 @@ using UnityEngine;
 public class VitalSideColor : MonoBehaviour
 {
     // Start is called before the first frame update
-    private EnemyBody enemyBody;
+    private PentagonBody enemyBody;
     private Renderer vitalSideRenderer; // Renderer for the vital side
     private BallApController ballApController; // Reference to the BallApController script
 
     void Start()
     {
-        enemyBody = GetComponentInParent<EnemyBody>();
+        enemyBody = GetComponentInParent<PentagonBody>();
         vitalSideRenderer = GetComponent<Renderer>();
         ballApController = GameObject.FindObjectOfType<BallApController>();
 
