@@ -24,6 +24,8 @@ public class BallApController : MonoBehaviour
     public int ballDamage_2 = 5;
     public int ballDamage_3 = 25;
 
+    public float speedLimit = 20f;
+
     void Start()
     {
         ballMaterial = ballRenderer.material; // Get the material of the ball
@@ -37,6 +39,11 @@ public class BallApController : MonoBehaviour
     public void UpdateBallAppearance()
     {
         float ballSpeed = ballRigidbody.velocity.magnitude;
+
+        if (ballSpeed > speedLimit)
+        {
+            ballRigidbody.velocity = ballRigidbody.velocity.normalized * speedLimit;
+        }
 
         // Change ball color based on speed thresholds
         if (ballSpeed < speedThreshold1)

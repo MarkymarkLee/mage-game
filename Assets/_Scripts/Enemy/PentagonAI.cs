@@ -59,7 +59,7 @@ public class PentagonAI : MonoBehaviour
             isAttacking = true;
             if (phase == 0) 
             {
-                StartCoroutine(PhaseZeroMechanics());
+                StartCoroutine(PhaseTwoMechanics());
             }
             else if (phase == 1)
             {
@@ -335,7 +335,7 @@ public class PentagonAI : MonoBehaviour
         Debug.Log("Boss is in Phase 1: Spin and minor AoEs.");
         // Add logic for basic attacks and minor AoE abilities here
         yield return StartCoroutine(MoveToPoint(new Vector3(0, 0, 0)));
-        float duration = 20f;
+        float duration = 10f;
         StartCoroutine(Spin(duration, 360));
         float elapsedTime = 0f;
         float aoetriggerdelay = 1.5f;
@@ -351,6 +351,7 @@ public class PentagonAI : MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return null;
         }
+        yield return new WaitForSeconds(3f);
         isAttacking = false;
     }
 
@@ -451,7 +452,7 @@ public class PentagonAI : MonoBehaviour
         Debug.Log("Boss has entered Phase 2: Laser and targeted debuffs.");
         // Add logic for arena-wide AoE and debuffs here
         yield return StartCoroutine(MoveToPoint(new Vector3(0, 0, 0)));
-        float duration = 15f;
+        float duration = 14f;
         StartCoroutine(Spin(duration, 50));
         ShootBeamsFromPolygonPoints();
         float elapsedTime = 0f;
@@ -468,6 +469,7 @@ public class PentagonAI : MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return null;
         }
+        yield return new WaitForSeconds(3f);
         isAttacking = false;
     }
 

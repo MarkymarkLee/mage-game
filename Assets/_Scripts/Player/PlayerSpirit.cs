@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerSpirit : MonoBehaviour
 {
@@ -28,7 +29,18 @@ public class PlayerSpirit : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (isInvincible) return;  // Exit if player is currently invincible
+        if (collision.CompareTag("Bullet"))
+        {
+            initialLives--;
+            AdjustSize(-sizeChangeAmount);
+            StartCoroutine(InvincibilityFlash());
+        }
+    }
+
+    void OnCollisionStay2D(Collision2D collision)
     {
         if (isInvincible) return;  // Exit if player is currently invincible
 
@@ -37,6 +49,7 @@ public class PlayerSpirit : MonoBehaviour
             initialLives--;
             AdjustSize(-sizeChangeAmount);
             StartCoroutine(KnockbackEnemy(collision));
+            isInvincible = true;
             StartCoroutine(InvincibilityFlash());
         }
     }
@@ -60,7 +73,7 @@ public class PlayerSpirit : MonoBehaviour
         {
             Die();
         }
-        else if(initialLives == 1)
+        else if (initialLives == 1)
         {
             var main = appearance.main;
             main.startColor = lastChanceColor;
@@ -84,6 +97,7 @@ public class PlayerSpirit : MonoBehaviour
 
         while (elapsed < knockbackDuration)
         {
+            if (enemyTransform == null) yield break;  // Exit if enemy has been destroyed
             elapsed += Time.deltaTime;
             float t = elapsed / knockbackDuration;
             enemyTransform.position = Vector2.Lerp(startPosition, targetPosition, t);
@@ -93,7 +107,6 @@ public class PlayerSpirit : MonoBehaviour
 
     System.Collections.IEnumerator InvincibilityFlash()
     {
-        isInvincible = true;
         float elapsed = 0f;
         bool isVisible = true;
 
@@ -124,5 +137,6 @@ public class PlayerSpirit : MonoBehaviour
         Debug.Log("Player has died.");
         // Handle death (e.g., restart level, show game over screen)
         Destroy(gameObject);
+        SceneManager.LoadScene("Lose Screen");
     }
 }

@@ -10,6 +10,7 @@ TagManager:
   - Enemy
   - Spirit
   - Wall
+  - Bullet
   layers:
   - Default
   - TransparentFX

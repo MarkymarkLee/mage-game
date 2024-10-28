@@ -5,16 +5,21 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     // Movement variables
-    public float normalSpeed = 5f; // Regular movement speed
+    public float maxSpeed = 5f;        // Maximum speed
+    public float acceleration = 10f;   // Acceleration rate
+    public float deceleration = 10f;   // Deceleration rate
     public float dashSpeed = 20f; // Speed for dashing
     public float dashCooldown = 2f; // Cooldown between dashes
     public float dashDuration = 0.2f; // Duration of the dash
     public LayerMask obstacleLayer; // Layer mask for detecting obstacles
 
+    public float diminishSpeed = 0.1f;
+
     // Trail for dash effect
-    public TrailRenderer dashTrail; 
+    public TrailRenderer dashTrail;
 
     private Rigidbody2D rb;
+    private Vector2 currentVelocity;   // Player's current speed and direction
     private Vector2 movement;
     private bool isDashing = false;
     private float dashTime;
@@ -48,10 +53,33 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // void MovePlayer()
+    // {
+    //     Vector2 movementInput = movement.normalized * maxSpeed;
+    //     rb.MovePosition(rb.position + movementInput * Time.fixedDeltaTime);
+    // }
+
     void MovePlayer()
     {
-        Vector2 movementInput = movement.normalized * normalSpeed;
-        rb.MovePosition(rb.position + movementInput * Time.fixedDeltaTime);
+        // Get input and calculate target speed
+        Vector2 movementInput = movement.normalized;
+        Vector2 targetVelocity = movementInput * maxSpeed;
+
+        // Accelerate or decelerate to reach the target speed
+        if (movementInput.magnitude > 0)
+        {
+            // Accelerate toward the target speed
+            currentVelocity = Vector2.MoveTowards(currentVelocity, targetVelocity, acceleration * Time.fixedDeltaTime);
+        }
+        else
+        {
+            // Decelerate to a stop
+            currentVelocity = Vector2.MoveTowards(currentVelocity, Vector2.zero, deceleration * Time.fixedDeltaTime);
+        }
+
+        // Move the player
+        rb.MovePosition(rb.position + currentVelocity * Time.fixedDeltaTime);
+
     }
 
     private void StartDash()

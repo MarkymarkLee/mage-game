@@ -12,13 +12,12 @@ public class PolygonalAoe : MonoBehaviour
     public Material aoeMaterial; // Material for the AoE indicator
 
     private Mesh mesh;
-    private bool isActive;
     private PolygonCollider2D aoeCollider;
 
     void Start()
     {
         aoeCollider = GetComponent<PolygonCollider2D>();
-        aoeCollider.isTrigger = true; // Set collider as a trigger
+        aoeCollider.isTrigger = false;
         
         CreatePolygonMesh();
         StartCoroutine(ActivateAoE());
@@ -29,7 +28,7 @@ public class PolygonalAoe : MonoBehaviour
         if (aoeCollider == null)
         {
             aoeCollider = gameObject.AddComponent<PolygonCollider2D>();
-            aoeCollider.isTrigger = true;
+            aoeCollider.isTrigger = false;
         }
         mesh = new Mesh();
         GetComponent<MeshFilter>().mesh = mesh;
@@ -81,7 +80,7 @@ public class PolygonalAoe : MonoBehaviour
     IEnumerator ActivateAoE()
     {
         yield return new WaitForSeconds(delayBeforeDamage);
-        isActive = true; // AoE is now active and will deal damage
+        aoeCollider.isTrigger = true;// AoE is now active and will deal damage
         Debug.Log("AoE is now active and can deal damage!");
 
         yield return new WaitForSeconds(0.5f); // AoE active for a short time
@@ -91,7 +90,7 @@ public class PolygonalAoe : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         // Check if AoE is active and the object is tagged as "Player"
-        if (isActive && other.CompareTag("Player"))
+        if (aoeCollider.isTrigger && other.CompareTag("Player"))
         {
             // Apply damage to the player
             Debug.Log("Player took damage from AoE!");

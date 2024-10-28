@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -45,7 +46,8 @@ public class EnemySpawner : MonoBehaviour
         if (spawnPoints.Length > 0)
         {
             int spawnIndex = Random.Range(0, spawnPoints.Length);
-            Instantiate(enemyPrefabs[enemyIndex], spawnPoints[spawnIndex].position, Quaternion.identity);
+            Quaternion randomRotation = Quaternion.Euler(0, 0, Random.Range(0f, 360f));
+            Instantiate(enemyPrefabs[enemyIndex], spawnPoints[spawnIndex].position, randomRotation);
             currentEnemyCount++;
             spawnedEnemiesCount++;
         }
@@ -58,7 +60,7 @@ public class EnemySpawner : MonoBehaviour
 
         if (enemyIndex >= enemyPrefabs.Count && spawnedEnemiesCount <= 0)
         {
-            print("win");
+            SceneManager.LoadScene("Win Screen");
         }
     }
 }
