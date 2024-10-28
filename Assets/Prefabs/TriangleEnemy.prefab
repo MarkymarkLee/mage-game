@@ -102,6 +102,37 @@ MonoBehaviour:
   polygonSides: 3
   polygonRadius: 2
   centerRadius: 1.4
+--- !u!1 &2723792594174468436
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2049494337917460372}
+  m_Layer: 0
+  m_Name: Fire_point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2049494337917460372
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2723792594174468436}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1046118177211634196}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3373621347826751300
 GameObject:
   m_ObjectHideFlags: 0
@@ -115,6 +146,7 @@ GameObject:
   - component: {fileID: 4674778218056948735}
   - component: {fileID: 6336123021870648886}
   - component: {fileID: 3663570844927078531}
+  - component: {fileID: 6477458796736431968}
   m_Layer: 0
   m_Name: TriangleEnemy
   m_TagString: Enemy
@@ -138,6 +170,7 @@ Transform:
   - {fileID: 1026403565047735030}
   - {fileID: 9174917417220024449}
   - {fileID: 7608802070178065915}
+  - {fileID: 2049494337917460372}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &3144055681103546044
@@ -231,6 +264,7 @@ MonoBehaviour:
   currentHealth: 0
   vitalSide: {fileID: 7908674804954023332}
   spiritPrefab: {fileID: 803808075454615369, guid: 1a5bd1889345d8d4f9c6c1eafb955187, type: 3}
+  spiritDropProbability: 0.2
 --- !u!114 &3663570844927078531
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -246,10 +280,31 @@ MonoBehaviour:
   player: {fileID: 0}
   moveSpeed: 2
   stoppingDistance: 1
-  rotationSpeed: 40
-  rotationInterval: 6
+  rotationSpeed: 60
+  rotationInterval: 4
   rotationAngle: 45
-  attackScripts: []
+  attackScripts:
+  - {fileID: 6477458796736431968}
+--- !u!114 &6477458796736431968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3373621347826751300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 050c3d604b18a9d4693a9708f5db006e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 5903550700772151517, guid: e1baa9f780193e1488b77c65fd981934, type: 3}
+  firePoint: {fileID: 2049494337917460372}
+  player: {fileID: 0}
+  bulletsPerAttack: 3
+  timeBetweenBullets: 0.4
+  attackCooldown: 7
+  recoveryTime: 1
+  rotationSpeed: 180
 --- !u!1 &4747733675227285355
 GameObject:
   m_ObjectHideFlags: 0
