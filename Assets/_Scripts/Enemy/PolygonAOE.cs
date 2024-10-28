@@ -17,8 +17,7 @@ public class PolygonalAoe : MonoBehaviour
     void Start()
     {
         aoeCollider = GetComponent<PolygonCollider2D>();
-        aoeCollider.isTrigger = false;
-        
+
         CreatePolygonMesh();
         StartCoroutine(ActivateAoE());
     }
@@ -28,11 +27,10 @@ public class PolygonalAoe : MonoBehaviour
         if (aoeCollider == null)
         {
             aoeCollider = gameObject.AddComponent<PolygonCollider2D>();
-            aoeCollider.isTrigger = false;
         }
         mesh = new Mesh();
         GetComponent<MeshFilter>().mesh = mesh;
-        
+
         Vector3[] points = GetCircumferencePoints(polygonSides, polygonRadius).ToArray();
         int[] triangles = DrawFilledTriangles(points);
 
@@ -54,7 +52,7 @@ public class PolygonalAoe : MonoBehaviour
     {
         List<Vector3> points = new List<Vector3>();
         float angleStep = 2 * Mathf.PI / sides;
-        
+
         for (int i = 0; i < sides; i++)
         {
             float angle = i * angleStep;
@@ -62,12 +60,12 @@ public class PolygonalAoe : MonoBehaviour
         }
         return points;
     }
-    
+
     int[] DrawFilledTriangles(Vector3[] points)
     {
         int triangleAmount = points.Length - 2;
         List<int> triangles = new List<int>();
-        
+
         for (int i = 0; i < triangleAmount; i++)
         {
             triangles.Add(0);
@@ -79,21 +77,12 @@ public class PolygonalAoe : MonoBehaviour
 
     IEnumerator ActivateAoE()
     {
+        print("1. " + gameObject.tag);
         yield return new WaitForSeconds(delayBeforeDamage);
-        aoeCollider.isTrigger = true;// AoE is now active and will deal damage
+        gameObject.tag = "Bullet"; // Set tag to AoE for collision detection
         Debug.Log("AoE is now active and can deal damage!");
-
+        print("2. " + gameObject.tag);
         yield return new WaitForSeconds(0.5f); // AoE active for a short time
         Destroy(gameObject); // Remove AoE after activation
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        // Check if AoE is active and the object is tagged as "Player"
-        if (aoeCollider.isTrigger && other.CompareTag("Player"))
-        {
-            // Apply damage to the player
-            Debug.Log("Player took damage from AoE!");
-        }
     }
 }

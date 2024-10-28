@@ -57,9 +57,9 @@ public class PentagonAI : MonoBehaviour
         if (!isAttacking)
         {
             isAttacking = true;
-            if (phase == 0) 
+            if (phase == 0)
             {
-                StartCoroutine(PhaseTwoMechanics());
+                StartCoroutine(PhaseZeroMechanics());
             }
             else if (phase == 1)
             {
@@ -103,7 +103,7 @@ public class PentagonAI : MonoBehaviour
                     }
                 }
             }
-            
+
         }
         if (enrage == true)
         {
@@ -134,7 +134,7 @@ public class PentagonAI : MonoBehaviour
         {
             if (elapsedTime > finishTime)
             {
-                finishTime = elapsedTime + aoeCooldown; 
+                finishTime = elapsedTime + aoeCooldown;
                 SpawnRandomAoe();
                 SpawnRandomAoe();
                 SpawnRandomAoe();
@@ -226,16 +226,16 @@ public class PentagonAI : MonoBehaviour
                 {
                     position.x -= polygonRadius;
                 }
-                else if (col ==  columns - 1)
+                else if (col == columns - 1)
                 {
                     position.x += polygonRadius;
                 }
-                
+
                 if (row == 1)
                 {
                     position.y -= polygonRadius;
                 }
-                else if (row ==  rows - 1)
+                else if (row == rows - 1)
                 {
                     position.y += polygonRadius;
                 }
@@ -345,7 +345,7 @@ public class PentagonAI : MonoBehaviour
         {
             if (elapsedTime >= finishTime)
             {
-                finishTime = elapsedTime + cd; 
+                finishTime = elapsedTime + cd;
                 FillScreenWithAoe(aoetriggerdelay);
             }
             elapsedTime += Time.deltaTime;
@@ -461,7 +461,7 @@ public class PentagonAI : MonoBehaviour
         {
             if (elapsedTime >= finishTime)
             {
-                finishTime = elapsedTime + aoeCooldown; 
+                finishTime = elapsedTime + aoeCooldown;
                 SpawnRandomAoe();
                 SpawnRandomAoe();
                 SpawnRandomAoe();

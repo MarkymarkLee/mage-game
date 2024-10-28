@@ -49,7 +49,6 @@ public class PlayerSpirit : MonoBehaviour
             initialLives--;
             AdjustSize(-sizeChangeAmount);
             StartCoroutine(KnockbackEnemy(collision));
-            isInvincible = true;
             StartCoroutine(InvincibilityFlash());
         }
     }
@@ -107,6 +106,8 @@ public class PlayerSpirit : MonoBehaviour
 
     System.Collections.IEnumerator InvincibilityFlash()
     {
+
+        isInvincible = true;
         float elapsed = 0f;
         bool isVisible = true;
 

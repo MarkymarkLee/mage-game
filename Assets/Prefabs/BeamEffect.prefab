@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3920887308187111915}
   m_Layer: 0
   m_Name: BeamEffect
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -152,6 +152,10 @@ MonoBehaviour:
   startTransform: {fileID: 0}
   endTransform: {fileID: 0}
   beamDuration: 20
+  warningDuration: 1
   borderLayer:
     serializedVersion: 2
     m_Bits: 0
+  warningColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  activeColor: {r: 1, g: 0, b: 0, a: 1}
+  borderColor: {r: 1, g: 1, b: 1, a: 1}
