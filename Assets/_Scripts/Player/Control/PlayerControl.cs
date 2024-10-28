@@ -13,8 +13,6 @@ public class PlayerController : MonoBehaviour
     public float dashDuration = 0.2f; // Duration of the dash
     public LayerMask obstacleLayer; // Layer mask for detecting obstacles
 
-    public float maxSpeed = 10f;
-
     public float diminishSpeed = 0.1f;
 
     // Trail for dash effect

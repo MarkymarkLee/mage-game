@@ -13,7 +13,7 @@ public class SquareAI : MonoBehaviour
 
     public float rotationSpeed = 5f;
 
-    Transform player;
+    Transform player_position;
 
     bool isAttacking = false;
     bool attackDone = false;
@@ -27,12 +27,12 @@ public class SquareAI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (player == null)
+        if (player_position == null)
         {
-            player = GameObject.FindGameObjectWithTag("Player").transform;
+            player_position = GameObject.FindGameObjectWithTag("Player").transform;
         }
         // Rotate the enemy towards the player
-        Vector3 direction = player.position - transform.position;
+        Vector3 direction = player_position.position - transform.position;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
@@ -42,17 +42,22 @@ public class SquareAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player == null)
         {
-            player = GameObject.FindGameObjectWithTag("Player").transform;
+            return;
         }
+        player_position = player.transform;
+
         cooldownTime -= Time.deltaTime;
-        if (player == null) return; // Exit if the player is not found
+
         if (isAttacking)
         {
             Attack();
             return;
         }
+
+        print(player_position.position);
 
         RotateTowardsPlayer();
         if (cooldownTime <= 0 && !isAttacking && canAttack)
@@ -61,17 +66,23 @@ public class SquareAI : MonoBehaviour
         }
     }
 
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        attackDone = true;
+    }
+
     bool canAttack = false;
 
     void RotateTowardsPlayer()
     {
-        Vector3 direction = player.position - transform.position;
+        Vector3 direction = player_position.position - transform.position;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         Quaternion targetRotation = Quaternion.AngleAxis(angle, Vector3.forward);
         if (transform.rotation != targetRotation)
         {
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         }
+
         if (transform.rotation == targetRotation)
         {
             canAttack = true;
@@ -84,27 +95,30 @@ public class SquareAI : MonoBehaviour
 
     void Attack()
     {
+
         // if velocity is different direction from towards attack position stop attacking
-        if (Vector3.Dot(rb.velocity, (attackPosition - transform.position).normalized) < 0)
+        if (Vector3.Dot(rb.velocity.normalized, (attackPosition - transform.position).normalized) < 0)
         {
             attackDone = true;
         }
         if (attackDone)
         {
-            rb.velocity = rb.velocity.normalized * (rb.velocity.magnitude - slowDownSpeed);
-            if (rb.velocity.magnitude <= 0.01f)
+            if (rb.velocity.magnitude <= slowDownSpeed)
             {
                 rb.velocity = Vector2.zero;
                 isAttacking = false;
-                attackDone = false;
                 cooldownTime = attackCooldown;
+            }
+            else
+            {
+                rb.velocity = rb.velocity.normalized * (rb.velocity.magnitude - slowDownSpeed);
             }
         }
     }
 
     void StartAttack()
     {
-        attackPosition = player.position;
+        attackPosition = player_position.position;
         isAttacking = true;
         attackDone = false;
         rb.velocity = (attackPosition - transform.position).normalized * attackSpeed;
