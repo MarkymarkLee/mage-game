@@ -9,6 +9,8 @@ public class EnemyAI : MonoBehaviour
     public float moveSpeed = 2f;
     public float stoppingDistance = 1f;
 
+    public float diminishSpeed = 0.1f;
+
     [Header("Rotation Settings")]
     public float rotationSpeed = 30f;
     public float rotationInterval = 2f;
@@ -22,6 +24,8 @@ public class EnemyAI : MonoBehaviour
 
     private bool isAttacking = false;
 
+    private Rigidbody2D rb;
+
     void Start()
     {
         if (player == null)
@@ -29,11 +33,17 @@ public class EnemyAI : MonoBehaviour
             player = GameObject.FindGameObjectWithTag("Player").transform;
         }
         targetRotation = transform.rotation;
+        rb = GetComponent<Rigidbody2D>();
     }
 
     void Update()
     {
         if (player == null) return;
+
+        if (rb.velocity.magnitude > 0)
+        {
+            rb.velocity = rb.velocity.normalized * (rb.velocity.magnitude - diminishSpeed);
+        }
 
         if (!isAttacking)
         {

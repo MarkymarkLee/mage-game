@@ -55,7 +55,7 @@
         "UserSettings/": true,
         "temp/": true,
         "Temp/": true,
-        "Assets/Storage": true,
+        "Assets/Storage": true
     },
     "dotnet.defaultSolution": "mage-game.sln"
 }
