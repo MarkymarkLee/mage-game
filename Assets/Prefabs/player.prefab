@@ -4882,10 +4882,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 13
-  acceleration: 55
-  deceleration: 45
+  acceleration: 60
+  deceleration: 55
   dashSpeed: 30
-  dashCooldown: 0.7
+  dashCooldown: 0.5
   dashDuration: 0.2
   obstacleLayer:
     serializedVersion: 2
@@ -5095,7 +5095,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4eb0ca40e155924fb85cfb8774ae9d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialLives: 3
+  initialLives: 4
   sizeChangeAmount: 0.2
   knockbackDistance: 3
   knockbackDuration: 0.5

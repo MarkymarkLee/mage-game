@@ -32,11 +32,13 @@ public class PentagonBody : MonoBehaviour
         {
             if (phase <= max_phase)
             {
+                print("phase: " + phase);
                 phase++;
                 currentHealth = maxHealth;
             }
             else
             {
+                print("dead");
                 dead = true;
                 Die();
             }

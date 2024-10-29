@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/_Scripts/Enemy/TriangleEnemy/Bullet.cs.meta
 guid: ea342042889abcf4580f85da8d94ae3f
+========
+guid: 51906b9f98547f340b08bc7bb9dbf621
+>>>>>>>> 526b13542fc4c3ae525de401b48836148fefd70e:Assets/_Scripts/Enemy/BeamEffect.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2

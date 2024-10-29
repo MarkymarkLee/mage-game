@@ -53,6 +53,14 @@ public class PlayerSpirit : MonoBehaviour
         }
     }
 
+    public void TakeDamage()
+    {
+        if (isInvincible) return;  // Exit if player is currently invincible
+        initialLives--;
+        AdjustSize(-sizeChangeAmount);
+        StartCoroutine(InvincibilityFlash());
+    }
+
     public void Heal()
     {
         initialLives++;

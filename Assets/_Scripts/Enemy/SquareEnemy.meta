@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/_Scripts/UI.meta
+guid: 0779c1c0943585e48b2563de21e0c732
+========
 guid: bf62604e2db1689459030f95f63080f7
+>>>>>>>> 526b13542fc4c3ae525de401b48836148fefd70e:Assets/_Scripts/Enemy/SquareEnemy.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

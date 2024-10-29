@@ -79,7 +79,6 @@ public class PlayerController : MonoBehaviour
 
         // Move the player
         rb.MovePosition(rb.position + currentVelocity * Time.fixedDeltaTime);
-
     }
 
     private void StartDash()

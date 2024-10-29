@@ -26,6 +26,7 @@ public class BeamEffect : MonoBehaviour
         }
     }
 
+
     void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
@@ -45,6 +46,8 @@ public class BeamEffect : MonoBehaviour
 
         ApplyWidth();
         borderLineRenderer.sortingOrder = lineRenderer.sortingOrder - 1;
+
+        // GenerateMeshCollider();
 
         // Initialize and configure the BoxCollider2D for damage
         beamCollider = gameObject.AddComponent<BoxCollider2D>();
@@ -146,4 +149,12 @@ public class BeamEffect : MonoBehaviour
             Debug.Log("Player took damage from Beam!");
         }
     }
+
+    // public void GenerateMeshCollider()
+    // {
+    //     MeshCollider collider = gameObject.AddComponent<MeshCollider>();
+    //     Mesh mesh = new Mesh();
+    //     borderLineRenderer.BakeMesh(mesh, true);
+    //     collider.sharedMesh = mesh;
+    // }
 }

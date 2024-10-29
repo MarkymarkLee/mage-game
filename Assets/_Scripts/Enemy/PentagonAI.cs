@@ -57,6 +57,9 @@ public class PentagonAI : MonoBehaviour
         if (!isAttacking)
         {
             isAttacking = true;
+            if(phase >= 1){
+                phase = 1;
+            }
             if (phase == 0)
             {
                 StartCoroutine(PhaseZeroMechanics());
@@ -127,7 +130,7 @@ public class PentagonAI : MonoBehaviour
     private IEnumerator PhaseZeroMechanics()
     {
         Debug.Log("Boss is in Phase 0: Basic attacks and minor AoEs.");
-        float duration = 7f;
+        float duration = 8f;
         float elapsedTime = 0f;
         float finishTime = 0f;
         while (elapsedTime < duration)
@@ -199,7 +202,7 @@ public class PentagonAI : MonoBehaviour
         PolygonalAoe aoeInstance = Instantiate(aoePrefab, position, rotation);
 
         aoeInstance.polygonSides = polygonSides;
-        aoeInstance.polygonRadius = radius;
+        aoeInstance.SetRadius(radius);
         aoeInstance.delayBeforeDamage = delay;
         aoeInstance.damage = 1;
     }

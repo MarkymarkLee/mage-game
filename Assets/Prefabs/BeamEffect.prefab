@@ -146,12 +146,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1227586542386111652}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51906b9f98547f340b08bc7bb9dbf621, type: 3}
+  m_Script: {fileID: 11500000, guid: 6f491143687757f43b58b7a5124c88e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   startTransform: {fileID: 0}
   endTransform: {fileID: 0}
-  beamDuration: 20
+  beamDuration: 14
   warningDuration: 1
   borderLayer:
     serializedVersion: 2
