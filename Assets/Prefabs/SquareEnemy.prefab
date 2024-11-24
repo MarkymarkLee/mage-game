@@ -4958,7 +4958,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 25
   currentHealth: 0
-  vitalSide: {fileID: 5947534984125338001}
+  vitalSides:
+  - {fileID: 5947534984125338001}
   spiritPrefab: {fileID: 803808075454615369, guid: 1a5bd1889345d8d4f9c6c1eafb955187, type: 3}
   spiritDropProbability: 0.5
 --- !u!114 &1346376090984972841
@@ -4975,8 +4976,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackSpeed: 20
   attackCooldown: 7
-  slowDownSpeed: 0.3
+  slowDownSpeed: 0.4
   rotationSpeed: 45
+  rushSpeed: 4
+  preRushBackOffDuration: 0.5
 --- !u!1 &4264339256369665978
 GameObject:
   m_ObjectHideFlags: 0

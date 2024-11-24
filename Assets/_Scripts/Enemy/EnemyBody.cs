@@ -1,14 +1,15 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyBody : MonoBehaviour
 {
     public int maxHealth = 10;
     public int currentHealth;
-    public GameObject vitalSide; // Assign the vital side object in the inspector
+    public List<GameObject> vitalSides; // Assign the vital side object in the inspector
     // public float damageMultiplier = 1f; // Multiplier based on ball speed or other factors
     private BallApController ballApController; // Reference to the BallApController script
     public GameObject spiritPrefab; // Reference to the spirit prefab
-    [Range(0f, 1f)] public float spiritDropProbability = 0.5f; 
+    [Range(0f, 1f)] public float spiritDropProbability = 0.5f;
     private EnemySpawner enemySpawner; // Reference to the EnemySpawner script
 
     void Start()
@@ -37,10 +38,12 @@ public class EnemyBody : MonoBehaviour
     {
         Debug.Log("Enemy died!");
         // Play death animation, destroy the enemy object, etc.
-        if (Random.value < spiritDropProbability){
+        if (Random.value < spiritDropProbability)
+        {
             Instantiate(spiritPrefab, transform.position, Quaternion.identity);
         }
-        if (enemySpawner != null){
+        if (enemySpawner != null)
+        {
             enemySpawner.OnEnemyDeath(); // Notify the enemy spawner that an enemy has died
         }
         Destroy(gameObject);
@@ -49,7 +52,7 @@ public class EnemyBody : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         // Check if the ball hit the vital side
-        if (collision.gameObject.CompareTag("Ball") && collision.otherCollider.gameObject == vitalSide)
+        if (collision.gameObject.CompareTag("Ball") && vitalSides.Contains(collision.otherCollider.gameObject))
         {
             Rigidbody2D ballRb = collision.gameObject.GetComponent<Rigidbody2D>();
             if (ballRb != null)

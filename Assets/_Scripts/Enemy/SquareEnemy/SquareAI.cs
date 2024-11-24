@@ -24,6 +24,9 @@ public class SquareAI : MonoBehaviour
 
     Vector3 attackPosition;
 
+    public float rushSpeed = 5f;
+    public float preRushBackOffDuration = 0.25f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -62,7 +65,8 @@ public class SquareAI : MonoBehaviour
         RotateTowardsPlayer();
         if (cooldownTime <= 0 && !isAttacking && canAttack)
         {
-            StartAttack();
+            attackPosition = player_position.position;
+            StartCoroutine(StartAttackCoroutine());
         }
     }
 
@@ -116,9 +120,17 @@ public class SquareAI : MonoBehaviour
         }
     }
 
+    IEnumerator StartAttackCoroutine()
+    {
+        Vector2 backOffDirection = (transform.position - attackPosition).normalized;
+        rb.velocity = backOffDirection * rushSpeed;
+        yield return new WaitForSeconds(preRushBackOffDuration);
+        rb.velocity = Vector2.zero;
+        StartAttack();
+    }
+
     void StartAttack()
     {
-        attackPosition = player_position.position;
         isAttacking = true;
         attackDone = false;
         rb.velocity = (attackPosition - transform.position).normalized * attackSpeed;

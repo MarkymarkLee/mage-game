@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerControl : MonoBehaviour
 {
     // Movement variables
     public float maxSpeed = 5f;        // Maximum speed
@@ -108,4 +108,5 @@ public class PlayerController : MonoBehaviour
         isDashing = false;
         dashTrail.emitting = false; // Turn off trail effect
     }
+
 }
