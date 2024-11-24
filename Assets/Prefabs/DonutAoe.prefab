@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4802108654831576159}
-  - component: {fileID: 8184543987927011938}
-  - component: {fileID: 928554961068759686}
+  - component: {fileID: 1366232500889119975}
+  - component: {fileID: 8427589534467000644}
   - component: {fileID: 193760604709133008}
   - component: {fileID: 3140533188524623598}
   m_Layer: 11
@@ -35,7 +35,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3893604027050786179}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8184543987927011938
+--- !u!114 &1366232500889119975
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -44,11 +44,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3019140107707232380}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71830c5bd7fd9304784e02f6d56b2816, type: 3}
+  m_Script: {fileID: 11500000, guid: 8f9018d9bac9c81489156d71b1eb3a82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   aoeMaterial: {fileID: 2100000, guid: 16d00d052b124eb4d8bca0fb874a0134, type: 2}
---- !u!114 &928554961068759686
+--- !u!114 &8427589534467000644
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -57,10 +57,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 3019140107707232380}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d059559af2e17694b84725d70ab27d9e, type: 3}
+  m_Script: {fileID: 11500000, guid: 83517c917a2dbde4fb9a84c2a0815a6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  duration: 1
+  duration: 0.5
 --- !u!33 &193760604709133008
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -120,12 +120,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3893604027050786179}
-  - component: {fileID: 4607598789929677027}
+  - component: {fileID: 7476108191973851516}
   - component: {fileID: 4577682450371365881}
   - component: {fileID: 5757540701796042705}
   - component: {fileID: 7049975966005879190}
+  - component: {fileID: -3463028283304982653}
   m_Layer: 11
-  m_Name: Aoe
+  m_Name: DonutAoe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -147,7 +148,7 @@ Transform:
   - {fileID: 4802108654831576159}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4607598789929677027
+--- !u!114 &7476108191973851516
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -156,7 +157,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5072115104542466980}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23d21c7a26cc8dd4eb0a122b81f5711b, type: 3}
+  m_Script: {fileID: 11500000, guid: fb95e6fecfb0255488b86597fc1adece, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   delayBeforeDamage: 1
@@ -164,7 +165,10 @@ MonoBehaviour:
   damage: 10
   aoeMaterial: {fileID: 2100000, guid: fcb26e6439e43f947a07e1649569f09a, type: 2}
   activeMaterial: {fileID: 2100000, guid: cb0ce0b741b49354abd9a1f03687882c, type: 2}
-  polygonCollider2D: {fileID: 7049975966005879190}
+  innerCollider: {fileID: 0}
+  outerCollider: {fileID: 0}
+  outerRadius: 0
+  innerRadius: 0
 --- !u!33 &4577682450371365881
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -264,4 +268,54 @@ PolygonCollider2D:
       - {x: -1.62, y: 1.18}
       - {x: -1.62, y: -1.18}
       - {x: 0.62, y: -1.9}
+  m_UseDelaunayMesh: 0
+--- !u!60 &-3463028283304982653
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5072115104542466980}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0, y: 1}
+      - {x: -0.95105654, y: 0.30901697}
+      - {x: -0.5877852, y: -0.80901706}
+      - {x: 0.58778536, y: -0.80901694}
+      - {x: 0.9510565, y: 0.30901712}
   m_UseDelaunayMesh: 0
