@@ -23,7 +23,7 @@ TagManager:
   - Map
   - PP-Layer
   - Enemy
-  - 
+  - Attack
   - 
   - 
   - 
@@ -56,4 +56,10 @@ TagManager:
     locked: 0
   - name: Ball
     uniqueID: 3683271081
+    locked: 0
+  - name: Enemy
+    uniqueID: 2653439461
+    locked: 0
+  - name: Attack
+    uniqueID: 117980865
     locked: 0
