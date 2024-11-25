@@ -18,7 +18,7 @@ public class SquareAI : MonoBehaviour
     bool isAttacking = false;
     bool attackDone = false;
 
-    float cooldownTime = 5;
+    float cooldownTime = 0;
 
     Rigidbody2D rb;
 
