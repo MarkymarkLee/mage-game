@@ -5011,19 +5011,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ballRenderer: {fileID: 6430484675058965368}
   ballRigidbody: {fileID: 7282462015154190111}
-  minReflectSpeed: 12
+  minReflectSpeed: 10
   initialColor: {r: 1, g: 1, b: 1, a: 1}
   firstColor: {r: 1, g: 0.97246, b: 0.015686274, a: 1}
   secondColor: {r: 1, g: 0.5954141, b: 0, a: 1}
   thirdColor: {r: 1, g: 0, b: 0, a: 1}
   speedThreshold1: 1
-  speedThreshold2: 23
-  speedThreshold3: 41
+  speedThreshold2: 19
+  speedThreshold3: 34
   ballDamage_0: 0
   ballDamage_1: 5
   ballDamage_2: 20
   ballDamage_3: 60
-  speedLimit: 43
+  speedLimit: 35
 --- !u!114 &8753632929104023275
 MonoBehaviour:
   m_ObjectHideFlags: 0

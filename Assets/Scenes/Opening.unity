@@ -852,7 +852,7 @@ MonoBehaviour:
   - 4
   - 4.07
   fadeDuration: 1.5
-  fadeOutDuration: 3
+  fadeOutDuration: 4.07
   nextSceneName: World
 --- !u!1 &884692061
 GameObject:

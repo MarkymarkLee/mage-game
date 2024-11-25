@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class HexagonBossController : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class HexagonBossController : MonoBehaviour
     public float preRushBackOffDuration = 1f;
 
     public int babyDamage = 2;
+    public string winScene = "WinScene";
 
     private EnemyBody enemyBody;
 
@@ -50,6 +52,17 @@ public class HexagonBossController : MonoBehaviour
     bool isPreSummonRotating = false;
     void Update()
     {
+        if (enemyBody.currentHealth <= 0)
+        {
+            print("Win");
+            // destroy all babies
+            foreach (GameObject baby in babies)
+            {
+                Destroy(baby);
+            }
+            SceneManager.LoadScene(winScene);
+        }
+
         if (isPreSummonRotating)
         {
             transform.Rotate(Vector3.forward * preSummonSpinSpeed * Time.deltaTime);
@@ -124,9 +137,15 @@ public class HexagonBossController : MonoBehaviour
 
         // Summon baby
         Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
-        while (!isValidSpawnPoint(spawnPoint))
+        int count = 0;
+        while (!isValidSpawnPoint(spawnPoint) && count < 10)
         {
             spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
+            count += 1;
+        }
+        if (!isValidSpawnPoint(spawnPoint))
+        {
+            yield break;
         }
         GameObject baby = Instantiate(babyPrefab, spawnPoint.position, Quaternion.identity);
         babies.Add(baby);

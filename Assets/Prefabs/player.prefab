@@ -5081,8 +5081,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2545080eaafedd4428ea315b061dd8fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  additionalKickForce: 6
-  initialKickForce: 12
+  additionalKickForce: 5
+  initialKickForce: 10
   areaTrigger: {fileID: 8936383237547463787}
   ballAppearanceController: {fileID: 0}
 --- !u!114 &93371970359309662
@@ -5098,7 +5098,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialLives: 4
-  sizeChangeAmount: 0.2
+  sizeChangeAmount: 0.15
   knockbackDistance: 3
   knockbackDuration: 0.5
   invincibilityDuration: 1

@@ -5134,7 +5134,7 @@ MonoBehaviour:
   movementController: {fileID: 417830647537052370}
   times: 3
   aoeCooldown: 3
-  rotate_speed: 80
+  rotate_speed: 40
 --- !u!114 &7588253035179384160
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5169,7 +5169,7 @@ MonoBehaviour:
   times: 5
   aoeCooldown: 3
   activeTime: 14
-  rotate_speed: 60
+  rotate_speed: 45
 --- !u!114 &1676454700056683989
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5187,7 +5187,7 @@ MonoBehaviour:
   times: 2
   aoeCooldown: 3
   activeTime: 15
-  rotate_speed: 60
+  rotate_speed: 45
 --- !u!114 &2293280731659841589
 MonoBehaviour:
   m_ObjectHideFlags: 0
