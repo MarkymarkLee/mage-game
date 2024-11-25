@@ -14,6 +14,10 @@ public class PlayerController : MonoBehaviour
     public LayerMask obstacleLayer; // Layer mask for detecting obstacles
 
     public float diminishSpeed = 0.1f;
+    public float teleportCooldown = 10f;
+    private float teleportTimer = 0f;
+    // public Image cooldownUI;                // UI Image to show cooldown (optional)
+    public bool isTPCooldown = false;
 
     // Trail for dash effect
     public TrailRenderer dashTrail;
@@ -24,11 +28,13 @@ public class PlayerController : MonoBehaviour
     private bool isDashing = false;
     private float dashTime;
     private float nextDashTime;
+    private GameObject ball;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         dashTrail.emitting = false; // Ensure trail is off initially
+        ball = GameObject.FindGameObjectWithTag("Ball");
     }
 
     void Update()
@@ -42,6 +48,37 @@ public class PlayerController : MonoBehaviour
         {
             StartDash();
         }
+
+        CheckTeleport();
+
+        if (Input.GetKeyDown(KeyCode.Space) && !isTPCooldown)
+        {
+            Teleport();
+        }
+    }
+
+    void CheckTeleport()
+    {
+        if (isTPCooldown)
+        {
+            teleportTimer -= Time.deltaTime;
+
+            // Check if cooldown is complete
+            if (teleportTimer <= 0f)
+            {
+                isTPCooldown = false;
+            }
+        }
+    }
+
+    void Teleport()
+    {
+        // Teleport the player to the ball's position
+        transform.position = ball.transform.position;
+
+        // Start the cooldown timer
+        isTPCooldown = true;
+        teleportTimer = teleportCooldown;
     }
 
     void FixedUpdate()

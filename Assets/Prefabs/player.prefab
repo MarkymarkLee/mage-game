@@ -4891,6 +4891,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   diminishSpeed: 0.1
+  teleportCooldown: 7
+  isTPCooldown: 0
   dashTrail: {fileID: 4433305914487612853}
 --- !u!50 &2914189575245268188
 Rigidbody2D:
@@ -5184,6 +5186,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeManager: {fileID: 0}
-  minSlowFactor: 0.5
-  maxSlowFactor: 0.1
+  minSlowFactor: 0.4
+  maxSlowFactor: 0.08
   maxBallSpeed: 20

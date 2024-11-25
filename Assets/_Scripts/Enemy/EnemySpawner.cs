@@ -13,6 +13,10 @@ public class EnemySpawner : MonoBehaviour
     public Transform[] spawnPoints;          // Assign spawn points in the Inspector
     public int maxEnemies = 10;              // Max number of enemies allowed in the scene
 
+    [Header("Effects")]
+    public GameObject spawnEffectPrefab;     // Particle effect prefab for spawn
+    public float effectDuration = 1f;        // Duration of the spawn effect
+
     private int currentEnemyCount = 0;
     private int spawnedEnemiesCount = 0;     // Total number of spawned enemies
     private int enemyIndex = 0;              // Index for the current enemy to spawn
@@ -32,22 +36,39 @@ public class EnemySpawner : MonoBehaviour
                 yield return null; // Wait until an enemy slot is freed
             }
 
-            // Accumulate wait time based on the spawn interval for the current enemy
+            // Wait for the spawn interval for the current enemy
             float waitTime = spawnIntervals[enemyIndex];
             yield return new WaitForSeconds(waitTime);
-            SpawnEnemy();
 
+            // Spawn enemy with the spawn effect
+            yield return SpawnEnemyWithEffect();
+
+            // Increment enemy index after the enemy is spawned
             enemyIndex++;
         }
     }
 
-    private void SpawnEnemy()
+    private IEnumerator SpawnEnemyWithEffect()
     {
         if (spawnPoints.Length > 0)
         {
+            // Select a random spawn point
             int spawnIndex = Random.Range(0, spawnPoints.Length);
+            Transform spawnPoint = spawnPoints[spawnIndex];
+
+            // Play the spawn effect
+            if (spawnEffectPrefab != null)
+            {
+                GameObject effect = Instantiate(spawnEffectPrefab, spawnPoint.position, Quaternion.identity);
+                Destroy(effect, effectDuration); // Clean up effect after its duration
+                yield return new WaitForSeconds(effectDuration); // Wait for effect to complete
+            }
+
+            // Instantiate the enemy after the effect
             Quaternion randomRotation = Quaternion.Euler(0, 0, Random.Range(0f, 360f));
-            Instantiate(enemyPrefabs[enemyIndex], spawnPoints[spawnIndex].position, randomRotation);
+            Instantiate(enemyPrefabs[enemyIndex], spawnPoint.position, randomRotation);
+
+            // Update counters
             currentEnemyCount++;
             spawnedEnemiesCount++;
         }
