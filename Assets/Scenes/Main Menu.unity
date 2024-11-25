@@ -1597,7 +1597,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f00e0f4078575db49ad39fa425153bab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: Boss World
+  sceneName: Penta World
 --- !u!114 &1856780232
 MonoBehaviour:
   m_ObjectHideFlags: 0
