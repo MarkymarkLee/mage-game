@@ -4881,9 +4881,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f59294b1c8f89540bc2fafe582a8aa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 13
-  acceleration: 60
-  deceleration: 55
+  maxSpeed: 15
+  acceleration: 80
+  deceleration: 75
   dashSpeed: 30
   dashCooldown: 0.5
   dashDuration: 0.2
@@ -4892,8 +4892,12 @@ MonoBehaviour:
     m_Bits: 256
   diminishSpeed: 0.1
   teleportCooldown: 7
+  tpSlowdownFactor: 0.0035
+  tpSlowdownDuration: 3
   isTPCooldown: 0
   dashTrail: {fileID: 4433305914487612853}
+  timeManager: {fileID: 0}
+  areaTrigger: {fileID: 0}
 --- !u!50 &2914189575245268188
 Rigidbody2D:
   serializedVersion: 4
@@ -5186,6 +5190,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeManager: {fileID: 0}
-  minSlowFactor: 0.4
-  maxSlowFactor: 0.08
-  maxBallSpeed: 20
+  minSlowFactor: 0.2
+  maxSlowFactor: 0.04
+  maxBallSpeed: 35

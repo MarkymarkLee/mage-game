@@ -21,6 +21,9 @@ public class EnemySpawner : MonoBehaviour
     private int spawnedEnemiesCount = 0;     // Total number of spawned enemies
     private int enemyIndex = 0;              // Index for the current enemy to spawn
 
+    public string nextSceneName; // Name of the next scene
+    public float delay = 2f; // Delay before switching to the next scene
+
     void Start()
     {
         StartCoroutine(SpawnEnemies());
@@ -81,7 +84,28 @@ public class EnemySpawner : MonoBehaviour
 
         if (enemyIndex >= enemyPrefabs.Count && spawnedEnemiesCount <= 0)
         {
-            SceneManager.LoadScene("Win Screen");
+            SwitchScene();
+        }
+    }
+
+    private void SwitchScene()
+    {
+        StartCoroutine(SwitchAfterDelay());
+    }
+
+    private IEnumerator SwitchAfterDelay()
+    {
+        // Wait for the specified delay
+        yield return new WaitForSeconds(delay);
+
+        // Load the next scene
+        if (!string.IsNullOrEmpty(nextSceneName))
+        {
+            SceneManager.LoadScene(nextSceneName);
+        }
+        else
+        {
+            Debug.LogWarning("Next scene name is not set!");
         }
     }
 }

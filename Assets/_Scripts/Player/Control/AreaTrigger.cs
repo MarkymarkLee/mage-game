@@ -5,6 +5,7 @@ public class AreaTrigger : MonoBehaviour
     public TimeManager timeManager;
     private bool isBallInArea = false; // Track if the ball is inside the area
     private Rigidbody2D ballRigidbody; // Reference to the ball's Rigidbody2D
+    private bool isTP = false;
 
     // Variables to control slow down intensity
     public float minSlowFactor = 0.5f; // Minimum slow down factor
@@ -16,6 +17,9 @@ public class AreaTrigger : MonoBehaviour
         if (collision.CompareTag("Ball"))
         {
             isBallInArea = true; // Ball has entered the area
+        }
+        if (collision.CompareTag("Ball") && !timeManager.IsTimeSlowed())
+        {
             ballRigidbody = collision.GetComponent<Rigidbody2D>();
             float ballSpeed = ballRigidbody.velocity.magnitude;
 
@@ -27,6 +31,9 @@ public class AreaTrigger : MonoBehaviour
 
             timeManager.SlowDownTime(slowFactor);
         }
+        else if (collision.CompareTag("Ball") && timeManager.IsTimeSlowed()){
+            isTP = true;
+        }
     }
 
 
@@ -35,6 +42,7 @@ public class AreaTrigger : MonoBehaviour
         if (collision.CompareTag("Ball"))
         {
             isBallInArea = false; // Ball has left the area
+            isTP = false;
             timeManager.ResetTime();
         }
     }
@@ -45,6 +53,7 @@ public class AreaTrigger : MonoBehaviour
         {
             timeManager.ResetTime();
             isBallInArea = false; // Reset the area state when shooting
+            isTP = false;
         }
     }
 
@@ -57,5 +66,10 @@ public class AreaTrigger : MonoBehaviour
     public bool IsBallInArea()
     {
         return isBallInArea;
+    }
+
+    public bool IsTP()
+    {
+        return isTP;
     }
 }

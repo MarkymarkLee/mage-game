@@ -2019,6 +2019,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 999563827}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &405317724 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 4776669514886767909, guid: ad3c317c599e0cf4a9d42a3ce46c3a84, type: 3}
+  m_PrefabInstance: {fileID: 7594275172645269265}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &495211350
 GameObject:
   m_ObjectHideFlags: 0
@@ -3549,6 +3554,8 @@ MonoBehaviour:
   maxEnemies: 2
   spawnEffectPrefab: {fileID: 5729306371136755565, guid: 3bd8413869113f4469751d5276cae9e1, type: 3}
   effectDuration: 1
+  nextSceneName: Chapter1
+  delay: 2
 --- !u!4 &1861142708
 Transform:
   m_ObjectHideFlags: 0
@@ -4166,6 +4173,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 726182771906994937, guid: c7d5ab60193e9924e9872bd55b045540, type: 3}
+      propertyPath: timeManager
+      value: 
+      objectReference: {fileID: 246759209}
     - target: {fileID: 1153271144190438171, guid: c7d5ab60193e9924e9872bd55b045540, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5
@@ -4211,14 +4222,6 @@ PrefabInstance:
       value: player
       objectReference: {fileID: 0}
     - target: {fileID: 4987686555488596738, guid: c7d5ab60193e9924e9872bd55b045540, type: 3}
-      propertyPath: initialKickForce
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 4987686555488596738, guid: c7d5ab60193e9924e9872bd55b045540, type: 3}
-      propertyPath: additionalKickForce
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4987686555488596738, guid: c7d5ab60193e9924e9872bd55b045540, type: 3}
       propertyPath: ballAppearanceController
       value: 
       objectReference: {fileID: 1829390110}
@@ -4226,6 +4229,14 @@ PrefabInstance:
       propertyPath: timeManager
       value: 
       objectReference: {fileID: 246759209}
+    - target: {fileID: 8936383237547463787, guid: c7d5ab60193e9924e9872bd55b045540, type: 3}
+      propertyPath: maxSlowFactor
+      value: 0.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 8936383237547463787, guid: c7d5ab60193e9924e9872bd55b045540, type: 3}
+      propertyPath: minSlowFactor
+      value: 0.2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4279,26 +4290,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4292577532440001622, guid: ad3c317c599e0cf4a9d42a3ce46c3a84, type: 3}
-      propertyPath: speedLimit
-      value: 35
-      objectReference: {fileID: 0}
-    - target: {fileID: 4292577532440001622, guid: ad3c317c599e0cf4a9d42a3ce46c3a84, type: 3}
-      propertyPath: minReflectSpeed
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 4292577532440001622, guid: ad3c317c599e0cf4a9d42a3ce46c3a84, type: 3}
-      propertyPath: speedThreshold2
-      value: 19
-      objectReference: {fileID: 0}
-    - target: {fileID: 4292577532440001622, guid: ad3c317c599e0cf4a9d42a3ce46c3a84, type: 3}
-      propertyPath: speedThreshold3
-      value: 34
-      objectReference: {fileID: 0}
     - target: {fileID: 6306291716197241520, guid: ad3c317c599e0cf4a9d42a3ce46c3a84, type: 3}
       propertyPath: m_Name
       value: ball body
       objectReference: {fileID: 0}
+    - target: {fileID: 8764255343395388893, guid: ad3c317c599e0cf4a9d42a3ce46c3a84, type: 3}
+      propertyPath: thunderSprite
+      value: 
+      objectReference: {fileID: 405317724}
     - target: {fileID: 8764255343395388893, guid: ad3c317c599e0cf4a9d42a3ce46c3a84, type: 3}
       propertyPath: playerController
       value: 

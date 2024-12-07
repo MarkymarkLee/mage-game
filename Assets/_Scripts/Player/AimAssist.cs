@@ -4,11 +4,13 @@ public class AimAssist : MonoBehaviour
 {
     public GameObject dotPrefab; // Prefab for the dots
     public int maxDots = 50; // Maximum number of dots
+    public int normalDots = 7; // Number of normal dots
     public float dotSpacing = 0.2f; // Distance between dots
-    public LayerMask collisionMask; // Layer mask for detecting collisions
 
     private GameObject[] dots;
-    private AreaTrigger areaTrigger; // Reference to the AreaTrigger script
+    private Vector2 screenBoundsMin; // Bottom-left corner of the screen
+    private Vector2 screenBoundsMax; // Top-right corner of the screen
+    private AreaTrigger areaTrigger;
 
     void Start()
     {
@@ -20,8 +22,13 @@ public class AimAssist : MonoBehaviour
             dots[i].SetActive(false); // Initially hide all dots
         }
 
-        // Find the AreaTrigger component on the child of the player
-        GameObject player = GameObject.FindGameObjectWithTag("Player"); // Ensure the player has the "Player" tag
+        // Cache screen bounds
+        Camera cam = Camera.main;
+        screenBoundsMin = cam.ViewportToWorldPoint(new Vector3(0, 0, cam.nearClipPlane));
+        screenBoundsMax = cam.ViewportToWorldPoint(new Vector3(1, 1, cam.nearClipPlane));
+
+        // Find the AreaTrigger component
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
         {
             areaTrigger = player.GetComponentInChildren<AreaTrigger>();
@@ -35,10 +42,13 @@ public class AimAssist : MonoBehaviour
 
     void Update()
     {
-        // Use IsBallInArea() to check if the aim assist should render
-        if (areaTrigger != null && areaTrigger.IsBallInArea())
+        if (areaTrigger != null && areaTrigger.IsTP())
         {
-            UpdateAimAssist();
+            UpdateAimAssist(maxDots);
+        }
+        else if (areaTrigger != null && areaTrigger.IsBallInArea())
+        {
+            UpdateAimAssist(normalDots);
         }
         else
         {
@@ -46,46 +56,43 @@ public class AimAssist : MonoBehaviour
         }
     }
 
-    void UpdateAimAssist()
+    void UpdateAimAssist(int dots_num)
     {
-        Vector2 startPosition = transform.position; // Start from the ball's position
-        Vector2 direction = ((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - (Vector2)transform.position).normalized;
+        Vector2 position = transform.position; // Start from the ball's position
+        Vector2 direction = ((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - position).normalized;
 
-
-        for (int i = 0; i < maxDots; i++)
+        for (int i = 0; i < dots_num; i++)
         {
-            // Raycast from the last valid position (startPosition) to check for collisions
-            RaycastHit2D hit = Physics2D.Raycast(startPosition, direction, dotSpacing, collisionMask);
+            // Calculate next dot position
+            Vector2 nextPosition = position + direction * dotSpacing;
 
-            if (hit.collider != null)
+            // Handle collisions with screen bounds
+            if (nextPosition.x <= screenBoundsMin.x || nextPosition.x >= screenBoundsMax.x)
             {
-                // Place the dot at the hit point
-                dots[i].transform.position = hit.point;
-                dots[i].SetActive(true);
-
-                // Reflect the direction after the collision
-                direction = Vector2.Reflect(direction, hit.normal);
-                startPosition = hit.point; // Update the start position after the hit
+                // Reflect off vertical walls
+                direction.x = -direction.x;
+                nextPosition.x = Mathf.Clamp(nextPosition.x, screenBoundsMin.x, screenBoundsMax.x);
             }
-            else
+            if (nextPosition.y <= screenBoundsMin.y || nextPosition.y >= screenBoundsMax.y)
             {
-                // No hit, place the dot at the next position along the trajectory
-                Vector2 dotPosition = startPosition + direction * dotSpacing;
-                dots[i].transform.position = dotPosition;
-                dots[i].SetActive(true);
-
-                // Update the start position for the next dot
-                startPosition = dotPosition;
+                // Reflect off horizontal walls
+                direction.y = -direction.y;
+                nextPosition.y = Mathf.Clamp(nextPosition.y, screenBoundsMin.y, screenBoundsMax.y);
             }
 
-            // Adjust transparency of the dot progressively
+            // Place dot at the calculated position
+            dots[i].transform.position = nextPosition;
+            dots[i].SetActive(true);
+
+            // Update position for the next dot
+            position = nextPosition;
+
+            // Adjust transparency progressively
             Color dotColor = dots[i].GetComponent<SpriteRenderer>().color;
-            dotColor.a = Mathf.Clamp01(1f - (float)i / maxDots); // Dots get more transparent as they move away
+            dotColor.a = Mathf.Clamp01(1f - (float)i / dots_num); // Dots fade out farther away
             dots[i].GetComponent<SpriteRenderer>().color = dotColor;
         }
     }
-
-
 
     void HideDots()
     {
