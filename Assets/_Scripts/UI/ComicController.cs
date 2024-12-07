@@ -18,7 +18,7 @@ public class ComicController : MonoBehaviour
     public float fadeDuration = 1f; // Duration for fade-in effects
     public string nextSceneName; // Name of the next scene
 
-    private int currentPage = 0;
+    public int currentPage = 0;
 
     void Start()
     {

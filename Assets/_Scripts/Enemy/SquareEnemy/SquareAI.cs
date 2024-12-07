@@ -107,16 +107,9 @@ public class SquareAI : MonoBehaviour
         }
         if (attackDone)
         {
-            if (rb.velocity.magnitude <= slowDownSpeed)
-            {
-                rb.velocity = Vector2.zero;
-                isAttacking = false;
-                cooldownTime = attackCooldown;
-            }
-            else
-            {
-                rb.velocity = rb.velocity.normalized * (rb.velocity.magnitude - slowDownSpeed);
-            }
+            rb.velocity = Vector2.zero;
+            isAttacking = false;
+            cooldownTime = attackCooldown;
         }
     }
 

@@ -3,6 +3,7 @@ using UnityEngine;
 public class VitalSideColor : MonoBehaviour
 {
     // Start is called before the first frame update
+    public bool autoUpdate = true;
     private EnemyBody enemyBody;
     private Renderer vitalSideRenderer; // Renderer for the vital side
     private BallApController ballApController; // Reference to the BallApController script
@@ -12,18 +13,21 @@ public class VitalSideColor : MonoBehaviour
         enemyBody = GetComponentInParent<EnemyBody>();
         vitalSideRenderer = GetComponent<Renderer>();
         ballApController = GameObject.FindObjectOfType<BallApController>();
-
-        UpdateVitalSideColor();
+        float curHealth = enemyBody.currentHealth;
+        UpdateVitalSideColor(curHealth);
     }
 
     void Update()
     {
-        UpdateVitalSideColor();
+        if (autoUpdate)
+        {
+            float curHealth = enemyBody.currentHealth;
+            UpdateVitalSideColor(curHealth);
+        }
     }
 
-    private void UpdateVitalSideColor()
+    public void UpdateVitalSideColor(float curHealth)
     {
-        float curHealth = enemyBody.currentHealth;
         if (curHealth <= ballApController.ballDamage_1)
         {
             vitalSideRenderer.material.color = ballApController.firstColor;

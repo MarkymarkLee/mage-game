@@ -28,13 +28,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2212013815612978364}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.2588191, w: 0.9659258}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3900007195012561548}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 30}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1484664615616195425
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -100,7 +100,7 @@ MonoBehaviour:
   polygonPoints: []
   polygonTriangles: 
   isFilled: 0
-  polygonSides: 6
+  polygonSides: 5
   polygonRadius: 2
   centerRadius: 1.5
 --- !u!114 &2119232133420135602
@@ -196,7 +196,8 @@ MonoBehaviour:
   vitalSides:
   - {fileID: 5634297481204214342}
   spiritPrefab: {fileID: 803808075454615369, guid: 1a5bd1889345d8d4f9c6c1eafb955187, type: 3}
-  spiritDropProbability: 0.2
+  spiritDropProbability: 0.25
+  deathEffect: {fileID: 3099592007191498795, guid: d707c1eacbadf78469d3d73ab1ed1d47, type: 3}
 --- !u!114 &257222938438847604
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -210,10 +211,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
+  maxSpeed: 50
   rotationSpeed: 100
   slowdownSpeed: 2
   moveDelay: 2
   moveDuration: 3
+  hitPlayer: 0
 --- !u!58 &1964128665719953708
 CircleCollider2D:
   m_ObjectHideFlags: 0

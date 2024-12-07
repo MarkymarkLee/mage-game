@@ -10,7 +10,7 @@ public class HexagonBossController : MonoBehaviour
     public int[] maxBabiesPerStage = { 1, 2, 3, 4 };
     public int[] vitalSidesPerStage = { 1, 3, 5, 6 };
     public int[] nextHealthCheckpointStage = { 75, 50, 25 };
-    public GameObject[] vitalSides; // Array of vital sides to activate per stage
+    private List<GameObject> vitalSides; // Array of vital sides to activate per stage
     public float rotationSpeed = 0;
     public float rushSpeed = 5f;
     public float rushDuration = 2f;
@@ -20,7 +20,7 @@ public class HexagonBossController : MonoBehaviour
     public float preRushBackOffDuration = 1f;
 
     public int babyDamage = 2;
-    public string winScene = "WinScene";
+    public string winScene = "Win Screen";
 
     private EnemyBody enemyBody;
 
@@ -46,22 +46,31 @@ public class HexagonBossController : MonoBehaviour
         player = getPlayerTransform();
         rb = GetComponent<Rigidbody2D>();
         enemyBody = GetComponent<EnemyBody>();
+        vitalSides = enemyBody.vitalSides;
         StartCoroutine(BossBehavior());
     }
 
     bool isPreSummonRotating = false;
-    void Update()
+
+    void OnDestroy()
     {
+        StopAllCoroutines();
+        // destroy all babies
+        foreach (GameObject baby in babies)
+        {
+            Destroy(baby);
+        }
+
         if (enemyBody.currentHealth <= 0)
         {
             print("Win");
             // destroy all babies
-            foreach (GameObject baby in babies)
-            {
-                Destroy(baby);
-            }
             SceneManager.LoadScene(winScene);
         }
+    }
+
+    void Update()
+    {
 
         if (isPreSummonRotating)
         {
@@ -70,8 +79,18 @@ public class HexagonBossController : MonoBehaviour
 
         if (enemyBody.currentHealth <= nextHealthCheckpointStage[currentStage])
         {
+            enemyBody.currentHealth = nextHealthCheckpointStage[currentStage];
             currentStage = (currentStage + 1) % maxBabiesPerStage.Length;
             UpdateVitalSides();
+        }
+
+        for (int i = 0; i < vitalSides.Count; i++)
+        {
+            if (i < vitalSidesPerStage[currentStage])
+            {
+                float stage_health = nextHealthCheckpointStage[currentStage] - enemyBody.currentHealth;
+                vitalSides[i].GetComponent<VitalSideColor>().UpdateVitalSideColor(stage_health);
+            }
         }
     }
 
@@ -152,9 +171,14 @@ public class HexagonBossController : MonoBehaviour
         baby.GetComponent<babyController>().OnBabyDestroyed += (destroyedBaby) =>
         {
             babies.Remove(destroyedBaby);
-            enemyBody.currentHealth -= babyDamage;
+            if (enemyBody.currentHealth > babyDamage && !destroyedBaby.GetComponent<babyController>().hitPlayer)
+            {
+                enemyBody.currentHealth -= babyDamage;
+            }
         };
     }
+
+    private Vector3 attackPosition;
 
     private IEnumerator RotateTowardsPlayer()
     {
@@ -170,6 +194,7 @@ public class HexagonBossController : MonoBehaviour
             // Check if the boss is facing the player
             if (Quaternion.Angle(transform.rotation, targetRotation) < 0.1f)
             {
+                attackPosition = player.position;
                 break;
             }
 
@@ -180,15 +205,15 @@ public class HexagonBossController : MonoBehaviour
     private IEnumerator RushTowardsPlayer()
     {
         // Go back a little before rushing towards the player
-        Vector2 backOffDirection = (transform.position - player.position).normalized;
+        Vector2 backOffDirection = (transform.position - attackPosition).normalized;
         rb.velocity = backOffDirection * rushSpeed;
         yield return new WaitForSeconds(preRushBackOffDuration);
         rb.velocity = Vector2.zero;
 
         // Rush towards the player
-        Vector2 direction = (player.position - transform.position).normalized;
+        Vector2 direction = (attackPosition - transform.position).normalized;
         rb.velocity = direction * rushSpeed;
-        while (Vector2.Dot((player.position - transform.position).normalized, rb.velocity.normalized) > 0)
+        while (Vector2.Dot((attackPosition - transform.position).normalized, rb.velocity.normalized) > 0)
         {
             yield return null;
         }
@@ -198,7 +223,7 @@ public class HexagonBossController : MonoBehaviour
 
     private void UpdateVitalSides()
     {
-        for (int i = 0; i < vitalSides.Length; i++)
+        for (int i = 0; i < vitalSides.Count; i++)
         {
             vitalSides[i].SetActive(i < vitalSidesPerStage[currentStage]);
         }

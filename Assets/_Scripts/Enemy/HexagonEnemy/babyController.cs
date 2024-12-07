@@ -4,6 +4,7 @@ using UnityEngine;
 public class babyController : MonoBehaviour
 {
     public float speed = 1;
+    public float maxSpeed = 5;
     public float rotationSpeed = 10;
     public float slowdownSpeed = 0.5f;
     public float moveDelay = 2f; // Time before moving towards the player
@@ -13,10 +14,13 @@ public class babyController : MonoBehaviour
     public delegate void BabyDestroyedHandler(GameObject baby);
     public event BabyDestroyedHandler OnBabyDestroyed;
 
+    public bool hitPlayer = false;
+
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            hitPlayer = true;
             Destroy(gameObject);
         }
     }
@@ -31,6 +35,10 @@ public class babyController : MonoBehaviour
 
     void Update()
     {
+        if (rb.velocity.magnitude > maxSpeed)
+        {
+            rb.velocity = rb.velocity.normalized * maxSpeed;
+        }
         transform.Rotate(Vector3.forward * rotationSpeed * Time.deltaTime);
         while (stopped)
         {

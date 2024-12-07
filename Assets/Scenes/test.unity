@@ -3617,6 +3617,10 @@ MonoBehaviour:
   - {fileID: 306658727}
   - {fileID: 1902447508}
   maxEnemies: 2
+  spawnEffectPrefab: {fileID: 0}
+  effectDuration: 1
+  nextSceneName: 
+  delay: 2
 --- !u!4 &1861142708
 Transform:
   m_ObjectHideFlags: 0
@@ -3864,6 +3868,87 @@ Transform:
   - {fileID: 112386580}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1916570990
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4199558250575199211, guid: bc0ca064e02f1394396f66138778bb9a, type: 3}
+      propertyPath: maxHealth
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 4199558250575199211, guid: bc0ca064e02f1394396f66138778bb9a, type: 3}
+      propertyPath: currentHealth
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 6825411757712317997, guid: bc0ca064e02f1394396f66138778bb9a, type: 3}
+      propertyPath: nextHealthCheckpointStage.Array.data[0]
+      value: 190
+      objectReference: {fileID: 0}
+    - target: {fileID: 6825411757712317997, guid: bc0ca064e02f1394396f66138778bb9a, type: 3}
+      propertyPath: nextHealthCheckpointStage.Array.data[1]
+      value: 130
+      objectReference: {fileID: 0}
+    - target: {fileID: 6825411757712317997, guid: bc0ca064e02f1394396f66138778bb9a, type: 3}
+      propertyPath: nextHealthCheckpointStage.Array.data[2]
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 6825411757712317997, guid: bc0ca064e02f1394396f66138778bb9a, type: 3}
+      propertyPath: nextHealthCheckpointStage.Array.data[3]
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7522685721346442518, guid: bc0ca064e02f1394396f66138778bb9a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7522685721346442518, guid: bc0ca064e02f1394396f66138778bb9a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7522685721346442518, guid: bc0ca064e02f1394396f66138778bb9a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7522685721346442518, guid: bc0ca064e02f1394396f66138778bb9a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7522685721346442518, guid: bc0ca064e02f1394396f66138778bb9a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7522685721346442518, guid: bc0ca064e02f1394396f66138778bb9a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7522685721346442518, guid: bc0ca064e02f1394396f66138778bb9a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7522685721346442518, guid: bc0ca064e02f1394396f66138778bb9a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7522685721346442518, guid: bc0ca064e02f1394396f66138778bb9a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7522685721346442518, guid: bc0ca064e02f1394396f66138778bb9a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9182576177916188690, guid: bc0ca064e02f1394396f66138778bb9a, type: 3}
+      propertyPath: m_Name
+      value: HexagonEnemy
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bc0ca064e02f1394396f66138778bb9a, type: 3}
 --- !u!1 &1939307851
 GameObject:
   m_ObjectHideFlags: 0
@@ -4001,3 +4086,4 @@ SceneRoots:
   - {fileID: 975542065}
   - {fileID: 1204914731}
   - {fileID: 677373623}
+  - {fileID: 1916570990}

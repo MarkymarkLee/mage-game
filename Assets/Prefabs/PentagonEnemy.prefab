@@ -6132,7 +6132,7 @@ MonoBehaviour:
   attackController: {fileID: 7217753810772428824}
   currentHealth: 25
   dead: 0
-  phase: 3
+  phase: 0
 --- !u!114 &3915517338989985662
 MonoBehaviour:
   m_ObjectHideFlags: 0

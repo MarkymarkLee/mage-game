@@ -4961,7 +4961,7 @@ MonoBehaviour:
   vitalSides:
   - {fileID: 5947534984125338001}
   spiritPrefab: {fileID: 803808075454615369, guid: 1a5bd1889345d8d4f9c6c1eafb955187, type: 3}
-  spiritDropProbability: 0.5
+  spiritDropProbability: 0.4
   deathEffect: {fileID: 3099592007191498795, guid: d707c1eacbadf78469d3d73ab1ed1d47, type: 3}
 --- !u!114 &1346376090984972841
 MonoBehaviour:
