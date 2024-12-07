@@ -9,7 +9,7 @@ public class AoeSpawner : MonoBehaviour
     public float delayBeforeDamage = 1.0f;
     public float distanceFromPlayer = 1.0f;
 
-    private int polygonSides = 5;
+    private int polygonSides = 6;
     private float polygonRadius = 2.0f;
     
     private FollowAoe followAoe;

@@ -12,9 +12,10 @@ public class PentagonAI : MonoBehaviour
 
     public bool isAttacking = false;
     private bool entryFinish = false;
+    private bool isWeaken = false;
     private bool debut = false;
     private bool enrage = false;
-    private int polygonSides = 5;
+    private int polygonSides = 6;
     private float polygonRadius = 2.0f;
     private int phase;
     private int enrageTimes = 0;
@@ -39,9 +40,24 @@ public class PentagonAI : MonoBehaviour
         StartCoroutine(EnrageTimer(enrageDuration));
     }
     
+    public void setisWeaken(bool value)
+    {
+        isWeaken = value;
+    }
+
+    public bool getisWeaken()
+    {
+        return isWeaken;
+    }
+    
     public void setisAttacking(bool value)
     {
         isAttacking = value;
+    }
+
+    public bool getisAttacking()
+    {
+        return isAttacking;
     }
 
     public void setEntryFinish(bool value)
@@ -75,11 +91,12 @@ public class PentagonAI : MonoBehaviour
         phase = pentagonBody.phase;
         if (!isAttacking)
         {
+            pentagonBody.switchLRSwitch();
             if (!entryFinish)
             {
                 Begining();
             }
-            else if (enrage)
+            else if (enrage || phase == 3)
             {
                 EnragePhase();
             }
@@ -121,19 +138,19 @@ public class PentagonAI : MonoBehaviour
 
     public void EnragePhase()
     {
-        Debug.Log("Boss has entered Phase 4: Enrage mode activated! Massive damage incoming.");
-        if (enrageTimes < 3)
-        {
-            enrageTimes++;
-        }
+        Debug.Log("Boss has entered Phase 3: Enrage mode activated! Massive damage incoming.");
+        // if (enrageTimes < 3)
+        // {
+        //     enrageTimes++;
+        // }
         isAttacking = true;
-        StartCoroutine(mechanics[4].Execute());
+        StartCoroutine(mechanics[3].Execute());
     }
 
     private IEnumerator EnrageTimer(float duration)
     {
         yield return new WaitForSeconds(duration);
-        enrage = true;
+        // enrage = true;
         Debug.Log("Boss is now enraged!");
     }
 

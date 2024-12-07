@@ -11,13 +11,20 @@ public class PhaseOneMechanic : Mechanic
     public int times = 1;
     public float aoeCooldown = 5.5f;
     public float rotate_speed = 30f;
-    
+    public AudioClip overDriveClip; // Add this line
+
     private float normalRotateSpeed = 80f;
     private float stillRotateSpeed = 30f;
+    private AudioSource audioSource; // Add this line
 
     void Start()
     {
         aoeSpawner = GetComponent<AoeSpawner>();
+        audioSource = GetComponent<AudioSource>(); // Add this line
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>(); // Add this line
+        }
     }
 
     public override IEnumerator Execute()
@@ -31,6 +38,7 @@ public class PhaseOneMechanic : Mechanic
         }
 
         // Set movement pattern to spin
+        PlaySound(overDriveClip); // Add this line
         movementController.SetMovementPattern(3, 2f, rotate_speed);
 
         int aoeCount = 0;
@@ -55,7 +63,35 @@ public class PhaseOneMechanic : Mechanic
         }
 
         movementController.SetMovementPattern(0, 2f, stillRotateSpeed);
-        yield return new WaitForSeconds(4f);
+        StopSound(); // Add this line
+        yield return new WaitForSeconds(3.0f);
         attackController.setisAttacking(false);
+    }
+
+    private void PlaySound(AudioClip clip) // Add this method
+    {
+        if (audioSource != null && clip != null)
+        {
+            audioSource.clip = clip;
+            audioSource.loop = true;
+            audioSource.Play();
+        }
+        else
+        {
+            Debug.LogWarning("AudioSource or AudioClip is missing.");
+        }
+    }
+
+    private void StopSound() // Add this method
+    {
+        if (audioSource != null)
+        {
+            audioSource.loop = false;
+            audioSource.Stop();
+        }
+        else
+        {
+            Debug.LogWarning("AudioSource component not found.");
+        }
     }
 }

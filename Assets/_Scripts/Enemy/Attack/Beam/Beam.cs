@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(LineRenderer))]
+[RequireComponent(typeof(LineRenderer), typeof(AudioSource))]
 public class Beam : MonoBehaviour
 {
     public float delayBeforeDamage = 1.0f;
@@ -14,10 +14,14 @@ public class Beam : MonoBehaviour
 
     public Material beamMaterial;
     public Material activeMaterial;
+
+    public AudioClip activationSound;
+    public AudioClip activatedSound;
     
     private float beamWidth = 1f;
     private LineRenderer beamRender;
     private bool isActive = false;
+    private AudioSource audioSource;
 
     void Start()
     {
@@ -26,6 +30,7 @@ public class Beam : MonoBehaviour
         {
             beamRender = gameObject.AddComponent<LineRenderer>();
         }
+        audioSource = GetComponent<AudioSource>();
         CreateBeamMesh();
         StartCoroutine(ActivateBeam());
     }
@@ -67,12 +72,51 @@ public class Beam : MonoBehaviour
     // Coroutine to handle AoE activation timing
     IEnumerator ActivateBeam()
     {
-        // Display warning for 1 second
+        // Play activation sound
+        if (activationSound != null)
+        {
+            audioSource.PlayOneShot(activationSound);
+        }
+        
         yield return new WaitForSeconds(delayBeforeDamage);
         isActive = true;
 
         beamRender.material = activeMaterial;
+
+        // Play activated sound
+        if (activatedSound != null)
+        {
+            StartCoroutine(FadeOutAndPlayActivatedSound());
+        }
         yield return new WaitForSeconds(activeTime);
+
+        // Stop activated sound
+        if (audioSource.isPlaying)
+        {
+            audioSource.Stop();
+        }
         Destroy(gameObject); // Remove AoE after activation
+    }
+
+    IEnumerator FadeOutAndPlayActivatedSound()
+    {
+        while (audioSource.volume > 0.01f)
+        {
+            audioSource.volume -= Time.deltaTime / 0.1f;
+            yield return null;
+        }
+        audioSource.Stop();
+
+        audioSource.clip = activatedSound;
+        audioSource.loop = true;
+        audioSource.volume = 0.0f;
+        audioSource.Play();
+
+        while (audioSource.volume < 0.3f)
+        {
+            audioSource.volume += Time.deltaTime / 0.1f;
+            yield return null;
+        }
+        audioSource.volume = 0.3f;
     }
 }
