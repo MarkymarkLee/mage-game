@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class HexagonBossController : MonoBehaviour
 {
     public GameObject babyPrefab;
+    public GameObject alertPrefab;
     public Transform[] spawnPoints;
     public int[] maxBabiesPerStage = { 1, 2, 3, 4 };
     public int[] vitalSidesPerStage = { 1, 3, 5, 6 };
@@ -88,7 +89,7 @@ public class HexagonBossController : MonoBehaviour
         {
             if (i < vitalSidesPerStage[currentStage])
             {
-                float stage_health = nextHealthCheckpointStage[currentStage] - enemyBody.currentHealth;
+                float stage_health = enemyBody.currentHealth - nextHealthCheckpointStage[currentStage];
                 vitalSides[i].GetComponent<VitalSideColor>().UpdateVitalSideColor(stage_health);
             }
         }
@@ -149,12 +150,6 @@ public class HexagonBossController : MonoBehaviour
 
     private IEnumerator SummonBaby()
     {
-        // Spin really fast before summoning babies
-        isPreSummonRotating = true;
-        yield return new WaitForSeconds(preSummonSpinDuration); // Spin duration
-        isPreSummonRotating = false;
-
-        // Summon baby
         Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
         int count = 0;
         while (!isValidSpawnPoint(spawnPoint) && count < 10)
@@ -166,7 +161,20 @@ public class HexagonBossController : MonoBehaviour
         {
             yield break;
         }
-        GameObject baby = Instantiate(babyPrefab, spawnPoint.position, Quaternion.identity);
+
+        Vector3 globalSpawnPosition = spawnPoint.position;
+
+        GameObject alert = Instantiate(alertPrefab, globalSpawnPosition, Quaternion.identity);
+
+        // Spin really fast before summoning babies
+        isPreSummonRotating = true;
+        yield return new WaitForSeconds(preSummonSpinDuration); // Spin duration
+        isPreSummonRotating = false;
+
+        Destroy(alert);
+
+        // Summon baby
+        GameObject baby = Instantiate(babyPrefab, globalSpawnPosition, Quaternion.identity);
         babies.Add(baby);
         baby.GetComponent<babyController>().OnBabyDestroyed += (destroyedBaby) =>
         {

@@ -6297,7 +6297,7 @@ MonoBehaviour:
   - {fileID: 2799776070496181316}
   spiritPrefab: {fileID: 803808075454615369, guid: 1a5bd1889345d8d4f9c6c1eafb955187, type: 3}
   spiritDropProbability: 0.5
-  deathEffect: {fileID: 0}
+  deathEffect: {fileID: 3099592007191498795, guid: d707c1eacbadf78469d3d73ab1ed1d47, type: 3}
 --- !u!114 &6825411757712317997
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6311,6 +6311,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   babyPrefab: {fileID: 5634297481204214342, guid: 329571286458ea342991959c91dec6b2, type: 3}
+  alertPrefab: {fileID: 6956129953937243022, guid: a8b6fcdc26dbb7647811c9ed30844ae0, type: 3}
   spawnPoints:
   - {fileID: 2243532944860949688}
   - {fileID: 5454079108022442671}

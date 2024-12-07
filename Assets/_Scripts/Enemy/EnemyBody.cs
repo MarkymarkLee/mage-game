@@ -4,6 +4,7 @@ using UnityEngine;
 public class EnemyBody : MonoBehaviour
 {
     public int maxHealth = 10;
+    public float invincibilityTime = 0.5f;
     public int currentHealth;
     public List<GameObject> vitalSides; // Assign the vital side object in the inspector
     // public float damageMultiplier = 1f; // Multiplier based on ball speed or other factors
@@ -13,12 +14,26 @@ public class EnemyBody : MonoBehaviour
     public ParticleSystem deathEffect; // Reference to the death effect particle system
     private EnemySpawner enemySpawner; // Reference to the EnemySpawner script
 
+    private float invincibilityTimer = 0;
+
     void Start()
     {
         // Initialize health
         currentHealth = maxHealth;
         ballApController = GameObject.FindObjectOfType<BallApController>();
         enemySpawner = GameObject.FindObjectOfType<EnemySpawner>();
+    }
+
+    void Update()
+    {
+        if (invincibilityTimer > 0)
+        {
+            invincibilityTimer -= Time.deltaTime;
+        }
+        else
+        {
+            invincibilityTimer = 0;
+        }
     }
 
     // Function to apply damage when the ball hits the vital side
@@ -59,6 +74,10 @@ public class EnemyBody : MonoBehaviour
         // Check if the ball hit the vital side
         if (collision.gameObject.CompareTag("Ball") && vitalSides.Contains(collision.otherCollider.gameObject))
         {
+            if (invincibilityTimer > 0)
+            {
+                return;
+            }
             Rigidbody2D ballRb = collision.gameObject.GetComponent<Rigidbody2D>();
             if (ballRb != null)
             {
