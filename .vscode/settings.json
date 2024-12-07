@@ -57,5 +57,5 @@
         "Temp/": true,
         "Assets/Storage": true
     },
-    "dotnet.defaultSolution": "Polygoneon.sln"
+    "dotnet.defaultSolution": "mage-game.sln"
 }

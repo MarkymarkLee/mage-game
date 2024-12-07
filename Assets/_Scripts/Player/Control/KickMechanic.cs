@@ -34,7 +34,7 @@ public class KickMechanic : MonoBehaviour
             mouseWorldPosition.z = 0f; // Ensure it's 2D
 
             // Calculate the new direction based on where the player aims
-            Vector2 kickDirection = (mouseWorldPosition - areaTrigger.transform.position).normalized;
+            Vector2 kickDirection = (mouseWorldPosition - (Vector3)ballRb.position).normalized;
 
             // Apply the current velocity in the new direction
             float currentSpeed = ballRb.velocity.magnitude; // Get current speed

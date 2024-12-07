@@ -10,6 +10,7 @@ public class EnemyBody : MonoBehaviour
     private BallApController ballApController; // Reference to the BallApController script
     public GameObject spiritPrefab; // Reference to the spirit prefab
     [Range(0f, 1f)] public float spiritDropProbability = 0.5f;
+    public ParticleSystem deathEffect; // Reference to the death effect particle system
     private EnemySpawner enemySpawner; // Reference to the EnemySpawner script
 
     void Start()
@@ -41,6 +42,10 @@ public class EnemyBody : MonoBehaviour
         if (Random.value < spiritDropProbability)
         {
             Instantiate(spiritPrefab, transform.position, Quaternion.identity);
+        }
+        if (deathEffect != null)
+        {
+            Instantiate(deathEffect, transform.position, Quaternion.identity);
         }
         if (enemySpawner != null)
         {

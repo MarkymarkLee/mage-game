@@ -15,12 +15,17 @@ public class PlayerController : MonoBehaviour
 
     public float diminishSpeed = 0.1f;
     public float teleportCooldown = 10f;
+    public float tpSlowdownFactor = 0.01f;
+    public float tpSlowdownDuration = 1f;
     private float teleportTimer = 0f;
     // public Image cooldownUI;                // UI Image to show cooldown (optional)
     public bool isTPCooldown = false;
 
     // Trail for dash effect
     public TrailRenderer dashTrail;
+
+    public TimeManager timeManager;
+    public AreaTrigger areaTrigger;
 
     private Rigidbody2D rb;
     private Vector2 currentVelocity;   // Player's current speed and direction
@@ -75,10 +80,18 @@ public class PlayerController : MonoBehaviour
     {
         // Teleport the player to the ball's position
         transform.position = ball.transform.position;
+        timeManager.SlowDownTime(tpSlowdownFactor);
+        StartCoroutine(ResetTimeAfterDelay(tpSlowdownDuration));
 
         // Start the cooldown timer
         isTPCooldown = true;
         teleportTimer = teleportCooldown;
+    }
+
+    IEnumerator ResetTimeAfterDelay(float delay)
+    {
+        yield return new WaitForSecondsRealtime(delay); // Use unscaled time for delay
+        timeManager.ResetTime();
     }
 
     void FixedUpdate()

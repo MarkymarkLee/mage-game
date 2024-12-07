@@ -1,102 +1,87 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement; // Required for scene management
+using UnityEngine.SceneManagement;
+
+[System.Serializable]
+public class PageData
+{
+    public GameObject page; // Page GameObject
+    public float pageWaitTime = 1f; // Time to wait before starting to display images on the page
+    public float imageWaitTime = 0.5f; // Time to wait between each image
+    public float pageDuration = 5f; // Total time the page should last after all images are shown
+}
 
 public class ComicController : MonoBehaviour
 {
-    public GameObject[] pages; // Array of page GameObjects
-    public List<float> pageDisplayTimes; // List of display times for each page
-    public float fadeDuration = 1f; // Duration for the fade effect
-    public float fadeOutDuration = 0.5f; // Duration for the fade-out effect
+    public List<PageData> pages; // List of pages with their data
+    public float fadeDuration = 1f; // Duration for fade-in effects
     public string nextSceneName; // Name of the next scene
+
     private int currentPage = 0;
-    private Coroutine autoPaginationCoroutine;
 
     void Start()
     {
-        ShowPage(0); // Show the first page with fade-in
-        StartAutoPagination(); // Start the auto-pagination process
+        StartCoroutine(ShowComic());
     }
 
-    void Update()
+    private IEnumerator ShowComic()
     {
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        while (currentPage < pages.Count)
         {
-            NextPage(true); // Stop auto-pagination if manually navigating
-        }
-        else if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            PreviousPage();
-        }
-    }
+            PageData pageData = pages[currentPage];
 
-    public void ShowPage(int index)
-    {
-        for (int i = 0; i < pages.Length; i++)
-        {
-            pages[i].SetActive(i == index);
-        }
+            // Wait for the pageWaitTime before starting
+            yield return new WaitForSeconds(pageData.pageWaitTime);
 
-        StartCoroutine(FadeInPage(pages[index]));
-    }
+            // Display the page
+            yield return DisplayPage(pageData);
 
-    public void NextPage(bool stopAuto = false)
-    {
-        if (stopAuto && autoPaginationCoroutine != null)
-        {
-            StopCoroutine(autoPaginationCoroutine);
-            autoPaginationCoroutine = null;
-        }
+            // Wait for the page duration after all images are shown
+            yield return new WaitForSeconds(pageData.pageDuration);
 
-        if (currentPage < pages.Length - 1)
-        {
+            // Disable the page
+            pageData.page.SetActive(false);
+
             currentPage++;
-            ShowPage(currentPage);
         }
-        else
+
+        // Transition to the next scene after all pages
+        LoadNextScene();
+    }
+
+    private IEnumerator DisplayPage(PageData pageData)
+    {
+        // Activate the page
+        GameObject page = pageData.page;
+        page.SetActive(true);
+
+        // Display images one by one
+        Transform imagesParent = page.transform;
+        for (int i = 0; i < imagesParent.childCount; i++)
         {
-            StartCoroutine(FadeOutLastPage());
+            GameObject image = imagesParent.GetChild(i).gameObject;
+
+            // Fade in the image
+            yield return FadeInImage(image);
+
+            // Wait before showing the next image
+            if (i < imagesParent.childCount - 1) // Skip wait for the last image
+            {
+                yield return new WaitForSeconds(pageData.imageWaitTime);
+            }
         }
     }
 
-    public void PreviousPage()
+    private IEnumerator FadeInImage(GameObject image)
     {
-        if (currentPage > 0)
-        {
-            currentPage--;
-            ShowPage(currentPage);
-        }
-    }
-
-    private void StartAutoPagination()
-    {
-        if (autoPaginationCoroutine != null)
-        {
-            StopCoroutine(autoPaginationCoroutine);
-        }
-        autoPaginationCoroutine = StartCoroutine(AutoPaginate());
-    }
-
-    private IEnumerator AutoPaginate()
-    {
-        while (currentPage < pages.Length)
-        {
-            yield return new WaitForSeconds(pageDisplayTimes[currentPage]);
-            NextPage();
-        }
-    }
-
-    private IEnumerator FadeInPage(GameObject page)
-    {
-        CanvasGroup canvasGroup = page.GetComponent<CanvasGroup>();
+        CanvasGroup canvasGroup = image.GetComponent<CanvasGroup>();
         if (canvasGroup == null)
         {
-            canvasGroup = page.AddComponent<CanvasGroup>();
+            canvasGroup = image.AddComponent<CanvasGroup>();
         }
 
-        page.SetActive(true);
+        image.SetActive(true);
         canvasGroup.alpha = 0;
 
         float elapsedTime = 0f;
@@ -108,29 +93,6 @@ public class ComicController : MonoBehaviour
         }
 
         canvasGroup.alpha = 1;
-    }
-
-    private IEnumerator FadeOutLastPage()
-    {
-        GameObject lastPage = pages[pages.Length - 1];
-        CanvasGroup canvasGroup = lastPage.GetComponent<CanvasGroup>();
-        if (canvasGroup == null)
-        {
-            canvasGroup = lastPage.AddComponent<CanvasGroup>();
-        }
-
-        float elapsedTime = 0f;
-        while (elapsedTime < fadeOutDuration)
-        {
-            elapsedTime += Time.deltaTime;
-            canvasGroup.alpha = 1 - (elapsedTime / fadeOutDuration);
-            yield return null;
-        }
-
-        canvasGroup.alpha = 0;
-        lastPage.SetActive(false);
-
-        LoadNextScene(); // Transition to the next scene
     }
 
     private void LoadNextScene()
