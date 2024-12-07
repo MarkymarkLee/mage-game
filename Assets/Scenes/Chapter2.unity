@@ -581,12 +581,12 @@ MonoBehaviour:
     pageDuration: 2
   - page: {fileID: 2135647439}
     pageWaitTime: 0
-    imageWaitTime: 1
-    pageDuration: 1.5
+    imageWaitTime: 1.5
+    pageDuration: 2
   - page: {fileID: 1828122365}
     pageWaitTime: 0
-    imageWaitTime: 1
-    pageDuration: 1.5
+    imageWaitTime: 1.5
+    pageDuration: 2.3
   fadeDuration: 1
   nextSceneName: Hex World
 --- !u!1 &958509949

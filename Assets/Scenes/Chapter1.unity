@@ -501,12 +501,12 @@ MonoBehaviour:
   pages:
   - page: {fileID: 1199967038}
     pageWaitTime: 0
-    imageWaitTime: 1.5
-    pageDuration: 2
+    imageWaitTime: 1.7
+    pageDuration: 2.6
   - page: {fileID: 2135647439}
     pageWaitTime: 0
     imageWaitTime: 1
-    pageDuration: 1.5
+    pageDuration: 2.7
   fadeDuration: 1
   nextSceneName: Penta World
 --- !u!1 &1199967038
