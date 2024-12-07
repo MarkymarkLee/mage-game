@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(MeshFilter), typeof(MeshRenderer), typeof(PolygonCollider2D))]
 public class Aoe : MonoBehaviour
 {
     public float delayBeforeDamage = 1.0f;
@@ -11,17 +10,19 @@ public class Aoe : MonoBehaviour
     public Material aoeMaterial;
     public Material activeMaterial;
     public PolygonCollider2D polygonCollider2D;
-
+    public AudioClip aoeSoundEffect; // Add this line
 
     private int polygonSides;
     private float polygonRadius;
 
     private Mesh mesh;
     private bool isActive = false;
+    private AudioSource audioSource; // Add this line
 
     void Start()
     {
         CreatePolygonMesh();
+        audioSource = GetComponent<AudioSource>(); // Add this line
         StartCoroutine(ActivateAoE());
     }
 
@@ -109,6 +110,13 @@ public class Aoe : MonoBehaviour
     {
         // Display warning for 1 second
         yield return new WaitForSeconds(delayBeforeDamage);
+        
+        // Play AoE sound effect
+        if (aoeSoundEffect != null)
+        {
+            audioSource.PlayOneShot(aoeSoundEffect);
+        }
+        
         isActive = true;
 
         foreach (Transform child in transform)
@@ -116,6 +124,7 @@ public class Aoe : MonoBehaviour
             Destroy(child.gameObject);
         }
         GetComponent<MeshRenderer>().material = activeMaterial;
+
         yield return new WaitForSeconds(activeTime);
         Destroy(gameObject); // Remove AoE after activation
     }

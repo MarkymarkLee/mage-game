@@ -35,6 +35,7 @@ public class MovementController : MonoBehaviour
 
     public void SetMovementPattern(int index, float move, float rotation)
     {
+        // print(index);
         moveSpeed = move;
         rotationSpeed = rotation;
 

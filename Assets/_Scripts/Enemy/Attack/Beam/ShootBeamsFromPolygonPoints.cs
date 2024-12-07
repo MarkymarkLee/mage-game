@@ -18,7 +18,7 @@ public class ShootBeamsFromPolygonPoints : MonoBehaviour
             Vector3 startPoint = polygonPoints[i];
             Vector3 direction = (startPoint - transform.position).normalized;
             Vector3 endPoint = CalculateBeamEndPoint(startPoint, direction);
-            beamSpawner.SpawnBeam(startPoint, endPoint, beamSpawner.beamWidth, activeTime, delayBeforeDamage, true);
+            beamSpawner.SpawnBeam(startPoint, endPoint, beamSpawner.beamWidth / 3.0f, activeTime, delayBeforeDamage, true);
         }
     }
 
@@ -29,7 +29,7 @@ public class ShootBeamsFromPolygonPoints : MonoBehaviour
 
         for (int i = 0; i < sides; i++)
         {
-            float currentAngle = angle + i * angleStep;
+            float currentAngle = angle + i * angleStep + 30;
             float radian = currentAngle * Mathf.Deg2Rad;
             float x = center.x + radius * Mathf.Cos(radian);
             float y = center.y + radius * Mathf.Sin(radian);
