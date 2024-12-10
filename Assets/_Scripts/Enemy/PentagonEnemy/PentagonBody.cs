@@ -18,8 +18,12 @@ public class PentagonBody : MonoBehaviour
     private bool LRswitch = false;
     public int phase = 0;
 
+    AudioManager audioManager;
+
     void Start()
     {
+        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+
         // Initialize health
         currentHealth = maxHealth;
         ballApController = GameObject.FindObjectOfType<BallApController>();
@@ -110,6 +114,7 @@ public class PentagonBody : MonoBehaviour
     // Function to apply damage when the ball hits the vital side
     public void TakeDamage(int damageAmount)
     {
+        audioManager.PlaySfx(audioManager.EnemyDamage);
         currentHealth -= damageAmount;
         vitalManager.UpdatecurHealth(currentHealth);
         Debug.Log("Enemy took damage! Current health: " + currentHealth);
