@@ -8,7 +8,12 @@ public class KickMechanic : MonoBehaviour
     private Rigidbody2D ballRb;
     public AreaTrigger areaTrigger;
     public BallApController ballAppearanceController;
+    AudioManager audioManager;
 
+    void Start()
+    {
+        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+    }
     void Update()
     {
         if (Input.GetMouseButtonDown(0)) // Left-click to kick
@@ -26,6 +31,7 @@ public class KickMechanic : MonoBehaviour
         if (ballCollider != null)
         {
             ballRb = ballCollider.GetComponent<Rigidbody2D>();
+            audioManager.PlaySfx(audioManager.PlayerShoot); // Play kick sound
 
             areaTrigger.ResetTimeOnShoot(); // Reset time when shooting
 

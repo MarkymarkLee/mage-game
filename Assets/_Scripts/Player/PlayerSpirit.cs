@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -14,12 +16,14 @@ public class PlayerSpirit : MonoBehaviour
     private Vector3 initialScale;
     private bool isInvincible = false;
     private Color originalColor;
+    AudioManager audioManager;
 
     // References to child objects
     [SerializeField] private ParticleSystem appearance;
 
     void Start()
     {
+        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
         initialScale = transform.localScale;
         originalColor = appearance.main.startColor.color;
 
@@ -34,6 +38,7 @@ public class PlayerSpirit : MonoBehaviour
         if (isInvincible) return;  // Exit if player is currently invincible
         if (collision.CompareTag("Bullet"))
         {
+            audioManager.PlaySfx(audioManager.PlayerDamage);
             initialLives--;
             AdjustSize(-sizeChangeAmount);
             StartCoroutine(InvincibilityFlash());
@@ -45,6 +50,7 @@ public class PlayerSpirit : MonoBehaviour
         if (isInvincible) return;  // Exit if player is currently invincible
         if (collision.gameObject.CompareTag("Bullet"))
         {
+            audioManager.PlaySfx(audioManager.PlayerDamage);
             initialLives--;
             AdjustSize(-sizeChangeAmount);
             StartCoroutine(InvincibilityFlash());
@@ -57,6 +63,7 @@ public class PlayerSpirit : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Enemy"))
         {
+            audioManager.PlaySfx(audioManager.PlayerDamage);
             initialLives--;
             AdjustSize(-sizeChangeAmount);
             StartCoroutine(KnockbackEnemy(collision));
@@ -67,6 +74,7 @@ public class PlayerSpirit : MonoBehaviour
     public void TakeDamage()
     {
         if (isInvincible) return;  // Exit if player is currently invincible
+        audioManager.PlaySfx(audioManager.PlayerDamage);
         initialLives--;
         AdjustSize(-sizeChangeAmount);
         StartCoroutine(InvincibilityFlash());
@@ -156,7 +164,23 @@ public class PlayerSpirit : MonoBehaviour
     {
         Debug.Log("Player has died.");
         // Handle death (e.g., restart level, show game over screen)
+        audioManager.PlaySfx(audioManager.PlayerDeath);
         Destroy(gameObject);
         SceneManager.LoadScene("Lose Screen");
+        // SwitchScene();
     }
+
+    // private void SwitchScene()
+    // {
+    //     StartCoroutine(SwitchAfterDelay());
+    // }
+
+    // private IEnumerator SwitchAfterDelay()
+    // {
+    //     // Wait for the specified delay
+    //     yield return new WaitForSeconds(0.5f);
+
+    //     // Load the next scene
+    //     SceneManager.LoadScene("Lose Screen");
+    // }
 }
