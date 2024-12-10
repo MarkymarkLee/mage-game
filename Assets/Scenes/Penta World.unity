@@ -2727,7 +2727,15 @@ PrefabInstance:
     - target: {fileID: 1335235743766910521, guid: 76a2b3035fbb6514786b5e1a0a97e658, type: 3}
       propertyPath: EnemyDeath
       value: 
-      objectReference: {fileID: 8300000, guid: e845c414bdcce754c91b5fd247b11632, type: 3}
+      objectReference: {fileID: 8300000, guid: dd8d8851a36771940b5c57f26b5c9c4b, type: 3}
+    - target: {fileID: 1335235743766910521, guid: 76a2b3035fbb6514786b5e1a0a97e658, type: 3}
+      propertyPath: EnemyDamage
+      value: 
+      objectReference: {fileID: 8300000, guid: 2ec4e90f27b21456daa175c06b6a103c, type: 3}
+    - target: {fileID: 1335235743766910521, guid: 76a2b3035fbb6514786b5e1a0a97e658, type: 3}
+      propertyPath: PlayerShoot
+      value: 
+      objectReference: {fileID: 8300000, guid: 1d689108fd013914eaf73e94b0b2f062, type: 3}
     - target: {fileID: 2929743481332956354, guid: 76a2b3035fbb6514786b5e1a0a97e658, type: 3}
       propertyPath: m_Name
       value: AudioManager

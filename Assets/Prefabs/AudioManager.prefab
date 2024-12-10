@@ -45,7 +45,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.4
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -143,8 +143,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerDamage: {fileID: 8300000, guid: 412b73a72f2af50459c99e567f95d281, type: 3}
   PlayerDeath: {fileID: 8300000, guid: 1d385da359953684db0964ff61eee162, type: 3}
-  PlayerTeleport: {fileID: 8300000, guid: a5c3612405cf5e44cb5e914d50156145, type: 3}
-  PlayerDash: {fileID: 8300000, guid: 9657e874efdbc88449d6ecf7fcde9b7b, type: 3}
-  PlayerShoot: {fileID: 8300000, guid: 437e03d43d1ca4442ae6508e61ef911e, type: 3}
-  EnemyDamage: {fileID: 8300000, guid: 2bed47541a6beea4d974ffe77b4bc6eb, type: 3}
-  EnemyDeath: {fileID: 8300000, guid: e845c414bdcce754c91b5fd247b11632, type: 3}
+  PlayerTeleport: {fileID: 8300000, guid: 01da01a354099a1459cb3139be156b89, type: 3}
+  PlayerDash: {fileID: 8300000, guid: a1922ea27ed8386439cbb092d10f3cf0, type: 3}
+  PlayerShoot: {fileID: 8300000, guid: 1d689108fd013914eaf73e94b0b2f062, type: 3}
+  EnemyDamage: {fileID: 8300000, guid: 2ec4e90f27b21456daa175c06b6a103c, type: 3}
+  EnemyDeath: {fileID: 8300000, guid: dd8d8851a36771940b5c57f26b5c9c4b, type: 3}
+  TriangleShoot: {fileID: 8300000, guid: a4eed4d9a9d5dc14290335178b0099e1, type: 3}
