@@ -16,8 +16,12 @@ public class EnemyBody : MonoBehaviour
 
     private float invincibilityTimer = 0;
 
+    AudioManager audioManager;
+
     void Start()
     {
+        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+
         // Initialize health
         currentHealth = maxHealth;
         ballApController = GameObject.FindObjectOfType<BallApController>();
@@ -47,6 +51,9 @@ public class EnemyBody : MonoBehaviour
         {
             Die();
         }
+        else{
+            audioManager.PlaySfx(audioManager.EnemyDamage);
+        }
     }
 
     // Function to handle enemy death
@@ -54,6 +61,7 @@ public class EnemyBody : MonoBehaviour
     {
         Debug.Log("Enemy died!");
         // Play death animation, destroy the enemy object, etc.
+        audioManager.PlaySfx(audioManager.EnemyDeath);
         if (Random.value < spiritDropProbability)
         {
             Instantiate(spiritPrefab, transform.position, Quaternion.identity);

@@ -16,8 +16,11 @@ public class TriangleAttack : MonoBehaviour, IEnemyAttack
     private float cooldownTimer = 0f;
     private EnemyAI enemyAI;
 
+    AudioManager audioManager;
+
     void Start()
     {
+        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
         cooldownTimer = attackCooldown;
 
         // Find the player if not assigned
@@ -32,6 +35,10 @@ public class TriangleAttack : MonoBehaviour, IEnemyAttack
 
     void Update()
     {
+        if (player == null)
+        {
+            return;
+        }
         // Update cooldown timer
         if (isOnCooldown)
         {
@@ -64,6 +71,7 @@ public class TriangleAttack : MonoBehaviour, IEnemyAttack
         Vector2 targetPosition = player.position;
         for (int i = 0; i < bulletsPerAttack; i++)
         {
+            audioManager.PlaySfx(audioManager.TriangleShoot);
             GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
             bullet.GetComponent<Bullet>().SetTarget(targetPosition);
             yield return new WaitForSeconds(timeBetweenBullets);

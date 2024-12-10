@@ -35,8 +35,11 @@ public class PlayerController : MonoBehaviour
     private float nextDashTime;
     private GameObject ball;
 
+    AudioManager audioManager;
+
     void Start()
     {
+        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
         rb = GetComponent<Rigidbody2D>();
         dashTrail.emitting = false; // Ensure trail is off initially
         ball = GameObject.FindGameObjectWithTag("Ball");
@@ -79,6 +82,7 @@ public class PlayerController : MonoBehaviour
     void Teleport()
     {
         // Teleport the player to the ball's position
+        audioManager.PlaySfx(audioManager.PlayerTeleport);
         transform.position = ball.transform.position;
         timeManager.SlowDownTime(tpSlowdownFactor);
         StartCoroutine(ResetTimeAfterDelay(tpSlowdownDuration));
@@ -133,6 +137,7 @@ public class PlayerController : MonoBehaviour
 
     private void StartDash()
     {
+        audioManager.PlaySfx(audioManager.PlayerDash);
         isDashing = true;
         dashTime = Time.time + dashDuration;
         nextDashTime = Time.time + dashCooldown;
